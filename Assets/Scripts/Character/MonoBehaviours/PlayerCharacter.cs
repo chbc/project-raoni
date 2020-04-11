@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Principal;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using ProjectRaoni;
 
 namespace Gamekit2D
 {
@@ -114,6 +114,8 @@ namespace Gamekit2D
         //used in non alloc version of physic function
         protected ContactPoint2D[] m_ContactsBuffer = new ContactPoint2D[16];
 
+        private PlayerAnimationController animationController;
+
         // MonoBehaviour Messages - called by Unity internally.
         void Awake()
         {
@@ -156,6 +158,8 @@ namespace Gamekit2D
 
             m_StartingPosition = transform.position;
             m_StartingFacingLeft = GetFacing() < 0.0f;
+
+            this.animationController = GetComponentInChildren<PlayerAnimationController>();
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -391,28 +395,20 @@ namespace Gamekit2D
 
             if (faceLeft)
             {
-                spriteRenderer.flipX = !spriteOriginallyFacesLeft;
+                this.animationController.SetOrientation(true);
                 m_CurrentBulletSpawnPoint = facingLeftBulletSpawnPoint;
             }
             else if (faceRight)
             {
-                spriteRenderer.flipX = spriteOriginallyFacesLeft;
+                this.animationController.SetOrientation(false);
                 m_CurrentBulletSpawnPoint = facingRightBulletSpawnPoint;
             }
         }
 
         public void UpdateFacing(bool faceLeft)
         {
-            if (faceLeft)
-            {
-                spriteRenderer.flipX = !spriteOriginallyFacesLeft;
-                m_CurrentBulletSpawnPoint = facingLeftBulletSpawnPoint;
-            }
-            else
-            {
-                spriteRenderer.flipX = spriteOriginallyFacesLeft;
-                m_CurrentBulletSpawnPoint = facingRightBulletSpawnPoint;
-            }
+            this.animationController.SetOrientation(faceLeft);
+            m_CurrentBulletSpawnPoint = faceLeft ? facingLeftBulletSpawnPoint : facingRightBulletSpawnPoint;
         }
 
         public float GetFacing()
@@ -425,6 +421,8 @@ namespace Gamekit2D
             float desiredSpeed = useInput ? PlayerInput.Instance.Horizontal.Value * maxSpeed * speedScale : 0f;
             float acceleration = useInput && PlayerInput.Instance.Horizontal.ReceivingInput ? groundAcceleration : groundDeceleration;
             m_MoveVector.x = Mathf.MoveTowards(m_MoveVector.x, desiredSpeed, acceleration * Time.deltaTime);
+
+            this.animationController.UpdateGroundedAnimation(m_MoveVector.x);
         }
 
         public void CheckForCrouching()
