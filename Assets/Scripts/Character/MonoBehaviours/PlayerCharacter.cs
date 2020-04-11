@@ -185,6 +185,13 @@ namespace Gamekit2D
         {
             if (PlayerInput.Instance.Pause.Down)
             {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+		Application.Quit();
+#endif
+
+                /* ###
                 if (!m_InPause)
                 {
                     if (ScreenFader.IsFading)
@@ -200,6 +207,7 @@ namespace Gamekit2D
                 {
                     Unpause();
                 }
+                */
             }
         }
 

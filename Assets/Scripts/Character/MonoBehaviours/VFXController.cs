@@ -167,7 +167,7 @@ namespace Gamekit2D
 
         public void Trigger(string name, Vector3 position, float startDelay, bool flip, Transform parent, TileBase tileOverride = null)
         {
-            Trigger(StringToHash(name), position, startDelay, flip, parent, tileOverride);
+            // ### Trigger(StringToHash(name), position, startDelay, flip, parent, tileOverride);
         }
 
         public void Trigger(int hash, Vector3 position, float startDelay, bool flip, Transform parent, TileBase tileOverride = null)
