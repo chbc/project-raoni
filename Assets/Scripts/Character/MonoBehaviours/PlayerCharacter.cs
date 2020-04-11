@@ -18,7 +18,6 @@ namespace Gamekit2D
             get { return m_InventoryController; }
         }
 
-        public SpriteRenderer spriteRenderer;
         public Damageable damageable;
         public Damager meleeDamager;
         public Transform facingLeftBulletSpawnPoint;
@@ -156,10 +155,11 @@ namespace Gamekit2D
 
             SceneLinkedSMB<PlayerCharacter>.Initialise(m_Animator, this);
 
+            this.animationController = GetComponentInChildren<PlayerAnimationController>();
+            this.SetOrientation(this.spriteOriginallyFacesLeft);
+
             m_StartingPosition = transform.position;
             m_StartingFacingLeft = GetFacing() < 0.0f;
-
-            this.animationController = GetComponentInChildren<PlayerAnimationController>();
         }
 
         void OnTriggerEnter2D(Collider2D other)
@@ -255,7 +255,7 @@ namespace Gamekit2D
             float newLocalPosX;
             float newLocalPosY = 0f;
 
-            float desiredLocalPosX = (spriteOriginallyFacesLeft ^ spriteRenderer.flipX ? -1f : 1f) * cameraHorizontalFacingOffset;
+            float desiredLocalPosX = (spriteOriginallyFacesLeft ^ this.animationController.IsFacingLeft ? -1f : 1f) * cameraHorizontalFacingOffset;
             desiredLocalPosX += m_MoveVector.x * cameraHorizontalSpeedOffset;
             if (Mathf.Approximately(m_CamFollowHorizontalSpeed, 0f))
                 newLocalPosX = desiredLocalPosX;
@@ -294,12 +294,12 @@ namespace Gamekit2D
 
             while (timer < damageable.invulnerabilityDuration)
             {
-                spriteRenderer.enabled = !spriteRenderer.enabled;
+                this.animationController.ToggleRendererVisibility();
                 yield return m_FlickeringWait;
                 timer += flickeringDuration;
             }
 
-            spriteRenderer.enabled = true;
+            this.animationController.SetRendererEnabled(true);
         }
 
         protected IEnumerator Shoot()
@@ -395,25 +395,25 @@ namespace Gamekit2D
 
             if (faceLeft)
             {
-                this.animationController.SetOrientation(true);
+                SetOrientation(true);
                 m_CurrentBulletSpawnPoint = facingLeftBulletSpawnPoint;
             }
             else if (faceRight)
             {
-                this.animationController.SetOrientation(false);
+                SetOrientation(false);
                 m_CurrentBulletSpawnPoint = facingRightBulletSpawnPoint;
             }
         }
 
         public void UpdateFacing(bool faceLeft)
         {
-            this.animationController.SetOrientation(faceLeft);
+            SetOrientation(faceLeft);
             m_CurrentBulletSpawnPoint = faceLeft ? facingLeftBulletSpawnPoint : facingRightBulletSpawnPoint;
         }
 
         public float GetFacing()
         {
-            return spriteRenderer.flipX != spriteOriginallyFacesLeft ? -1f : 1f;
+            return this.animationController.IsFacingLeft != spriteOriginallyFacesLeft ? -1f : 1f;
         }
 
         public void GroundedHorizontalMovement(bool useInput, float speedScale = 1f)
@@ -422,7 +422,8 @@ namespace Gamekit2D
             float acceleration = useInput && PlayerInput.Instance.Horizontal.ReceivingInput ? groundAcceleration : groundDeceleration;
             m_MoveVector.x = Mathf.MoveTowards(m_MoveVector.x, desiredSpeed, acceleration * Time.deltaTime);
 
-            this.animationController.UpdateGroundedAnimation(m_MoveVector.x);
+            if (useInput)
+                this.animationController.UpdateGroundedAnimation(m_MoveVector.x);
         }
 
         public void CheckForCrouching()
@@ -641,7 +642,10 @@ namespace Gamekit2D
             if (PlayerInput.Instance.RangedAttack.Held && m_Animator.GetBool(m_HashHoldingGunPara))
             {
                 if (m_ShootingCoroutine == null)
+                {
                     m_ShootingCoroutine = StartCoroutine(Shoot());
+                    this.animationController.PlayRangedAttack();
+                }
             }
 
             if ((PlayerInput.Instance.RangedAttack.Up || !m_Animator.GetBool(m_HashHoldingGunPara)) && m_ShootingCoroutine != null)
@@ -731,7 +735,7 @@ namespace Gamekit2D
         public void StopFlickering()
         {
             StopCoroutine(m_FlickerCoroutine);
-            spriteRenderer.enabled = true;
+            this.animationController.SetRendererEnabled(true);
         }
 
         public bool CheckForMeleeAttackInput()
@@ -749,6 +753,8 @@ namespace Gamekit2D
             meleeDamager.EnableDamage();
             meleeDamager.disableDamageAfterHit = true;
             meleeAttackAudioPlayer.PlayRandomSound();
+
+            this.animationController.PlayMeleeAttack();
         }
 
         public void DisableMeleeAttack()
@@ -805,6 +811,12 @@ namespace Gamekit2D
         public void KeyInventoryEvent()
         {
             if (KeyUI.Instance != null) KeyUI.Instance.ChangeKeyUI(m_InventoryController);
+        }
+
+        private void SetOrientation(bool left)
+        {
+            if (this.animationController != null)
+                this.animationController.SetOrientation(left, this.meleeDamager.SetXDirection);
         }
     }
 }

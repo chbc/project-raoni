@@ -65,6 +65,11 @@ namespace Gamekit2D
             m_CanDamage = false;
         }
 
+        public void SetXDirection(float direction)
+        {
+            this.offset = new Vector2(Mathf.Abs(this.offset.x) * direction, this.offset.y);
+        }
+
         void FixedUpdate()
         {
             if (!m_CanDamage)
