@@ -762,6 +762,7 @@ namespace Gamekit2D
             meleeDamager.disableDamageAfterHit = true;
             meleeAttackAudioPlayer.PlayRandomSound();
 
+            m_MoveVector.x = 0;
             this.animationController.PlayMeleeAttack();
         }
 
