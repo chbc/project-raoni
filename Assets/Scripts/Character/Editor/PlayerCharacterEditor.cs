@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 namespace Gamekit2D
@@ -8,7 +6,6 @@ namespace Gamekit2D
     [CustomEditor(typeof(PlayerCharacter))]
     public class PlayerCharacterEditor : Editor
     {
-        SerializedProperty m_SpriteRendererProp;
         SerializedProperty m_DamageableProp;
         SerializedProperty m_MeleeDamagerProp;
         SerializedProperty m_FacingLeftBulletSpawnPointProp;
@@ -64,7 +61,6 @@ namespace Gamekit2D
         bool m_CameraFollowSettingsFoldout;
         bool m_MiscSettingsFoldout;
 
-        readonly GUIContent m_SpriteRendererContent = new GUIContent("Sprite Renderer");
         readonly GUIContent m_DamageableContent = new GUIContent("Damageable");
         readonly GUIContent m_MeleeDamagerContent = new GUIContent("Melee Damager");
         readonly GUIContent m_FacingLeftBulletSpawnPointContent = new GUIContent("Facing Left Bullet Spawn Point");
@@ -122,7 +118,6 @@ namespace Gamekit2D
 
         void OnEnable ()
         {
-            m_SpriteRendererProp = serializedObject.FindProperty("spriteRenderer");
             m_DamageableProp = serializedObject.FindProperty("damageable");
             m_MeleeDamagerProp = serializedObject.FindProperty("meleeDamager");
             m_FacingLeftBulletSpawnPointProp = serializedObject.FindProperty("facingLeftBulletSpawnPoint");
@@ -180,7 +175,6 @@ namespace Gamekit2D
 
             if (m_ReferencesFoldout)
             {
-                EditorGUILayout.PropertyField (m_SpriteRendererProp, m_SpriteRendererContent);
                 EditorGUILayout.PropertyField (m_DamageableProp, m_DamageableContent);
                 EditorGUILayout.PropertyField (m_MeleeDamagerProp, m_MeleeDamagerContent);
                 EditorGUILayout.PropertyField (m_FacingLeftBulletSpawnPointProp, m_FacingLeftBulletSpawnPointContent);
