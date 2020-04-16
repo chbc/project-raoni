@@ -542,7 +542,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b6aa633d04e7d1488d7ae2a8ce094be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 556137487}
+  mainCamera: {fileID: 1141032688}
+  cameraBoundaries: {fileID: 1141032687}
+  virtualCameraTransform: {fileID: 556137487}
+  cameraOffset: 10.7
 --- !u!1001 &878742348
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -749,7 +752,7 @@ PrefabInstance:
     - target: {fileID: 7621138086905796942, guid: 4c4ef315eda887f4fa1bcb006cce18e5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.215483
+      value: -8.212023
       objectReference: {fileID: 0}
     - target: {fileID: 7621138086905796942, guid: 4c4ef315eda887f4fa1bcb006cce18e5,
         type: 3}
@@ -778,6 +781,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c4ef315eda887f4fa1bcb006cce18e5, type: 3}
+--- !u!65 &1141032687 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 7625531777637818061, guid: 4c4ef315eda887f4fa1bcb006cce18e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1141032686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1141032688 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7609635969617397814, guid: 4c4ef315eda887f4fa1bcb006cce18e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1141032686}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1317785241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4530920980854552, guid: 73360cdb4e1e7ed4897690f9d57fd0eb,
