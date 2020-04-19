@@ -68,8 +68,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1950848517
+  m_SortingLayer: 2
   m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: 5fabb87175d130b47af4ccd3379366b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2933651546918331385}
   - component: {fileID: 2933651546918331390}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: 2_Tile_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,8 +175,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1950848517
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: e05743b7255203f4da4d75d2a0ff5ddb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -198,7 +198,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3929598966227867851}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
