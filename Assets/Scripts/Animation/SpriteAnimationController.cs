@@ -7,7 +7,7 @@ namespace ProjectRaoni
     {
         private DragonBones.Animation animation;
 
-        private void Start()
+        protected virtual void Start()
         {
             UnityArmatureComponent armature = base.GetComponentInChildren<UnityArmatureComponent>();
             this.animation = armature.animation;
