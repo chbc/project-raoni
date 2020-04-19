@@ -356,8 +356,8 @@ MonoBehaviour:
   bulletSpeed: 30
   holdingGunTimeoutDuration: 1.5
   rightBulletSpawnPointAnimated: 1
-  cameraHorizontalFacingOffset: 2
-  cameraHorizontalSpeedOffset: 0.2
+  cameraHorizontalFacingOffset: 1
+  cameraHorizontalSpeedOffset: 0.05
   cameraVerticalInputOffset: 2
   maxHorizontalDeltaDampTime: 0.4
   maxVerticalDeltaDampTime: 0.6

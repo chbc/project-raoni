@@ -115,6 +115,7 @@
      <Compile Include="Assets\Scripts\Core\LayerMaskExtensions.cs" />
      <Compile Include="Assets\Scripts\Core\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Core\ParallaxController.cs" />
+     <Compile Include="Assets\Scripts\Core\PlayerCamera.cs" />
      <Compile Include="Assets\Scripts\Core\TimedDisabling.cs" />
      <Compile Include="Assets\Scripts\Effect\BossDoorStateManager.cs" />
      <Compile Include="Assets\Scripts\Effect\DropShadow.cs" />

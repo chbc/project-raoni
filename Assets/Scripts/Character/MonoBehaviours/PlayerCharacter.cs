@@ -209,6 +209,7 @@ namespace Gamekit2D
                 }
                 */
             }
+            UpdateCameraFollowTargetPosition();
         }
 
         void FixedUpdate()
@@ -217,7 +218,6 @@ namespace Gamekit2D
             m_Animator.SetFloat(m_HashHorizontalSpeedPara, m_MoveVector.x);
             m_Animator.SetFloat(m_HashVerticalSpeedPara, m_MoveVector.y);
             UpdateBulletSpawnPointPositions();
-            UpdateCameraFollowTargetPosition();
         }
 
         public void Unpause()

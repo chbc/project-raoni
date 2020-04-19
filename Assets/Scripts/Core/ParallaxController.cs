@@ -21,7 +21,7 @@ namespace ProjectRaoni
             this.zDistance = this.initialPosition.z - this.mainCameraTransform.position.z;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             this.currentPosition.x = this.GetPosition();
             this.objectTransform.position = this.currentPosition;
