@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Zone1.unity
     guid: bc56a0c0f4747724bb8fbc5bb7c2091b
   - enabled: 1
+    path: Assets/Scenes/Zone2.unity
+    guid: a5208244da648304d9e3590c96d6d0bd
+  - enabled: 1
     path: Assets/Scenes/BossZone.unity
     guid: ebb5d21a73d66fb429074af1248cef6f
   m_configObjects: {}

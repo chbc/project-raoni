@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 114621962236214084}
   m_Layer: 13
   m_Name: PlayerCharacter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1735,6 +1735,7 @@ MonoBehaviour:
   ATTACK2: atk2
   HIT: hit
   DEATH: dead
+  overrideMaterial: {fileID: 0}
 --- !u!1 &3012990066692873457
 GameObject:
   m_ObjectHideFlags: 0
