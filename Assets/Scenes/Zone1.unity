@@ -600,7 +600,7 @@ MonoBehaviour:
   goMessage: {fileID: 1729394698}
   collision: {fileID: 829135046}
   startSceneCollision: {fileID: 46468905}
-  TRANSITION_SPEED: 1
+  TRANSITION_SPEED: 0.2
 --- !u!61 &373735837
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1466,6 +1466,11 @@ PrefabInstance:
     - target: {fileID: 4857368061475226, guid: 12c2177bf06bbee44b65f5e185b2216f, type: 3}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114284569073516130, guid: 12c2177bf06bbee44b65f5e185b2216f,
+        type: 3}
+      propertyPath: fadeDuration
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12c2177bf06bbee44b65f5e185b2216f, type: 3}
