@@ -6,9 +6,25 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private Transform referenceTransform;
     [SerializeField] private BoxCollider2D collider;
     
+    public static PlayerCamera Instance { get; private set; }
+    
     private Transform cameraTransform;
     private Vector3 cameraPosition;
+    private bool isLimited;
+    private float limitedX;
+
+    public void LimitBack(bool canUpdate)
+    {
+        this.isLimited = canUpdate;
+        this.limitedX = this.cameraPosition.x;
+    }
     
+    private void Awake()
+    {
+        Instance = this;
+        this.isLimited = false;
+    }
+
     private void Start()
     {
         this.cameraTransform = base.transform;
@@ -25,8 +41,11 @@ public class PlayerCamera : MonoBehaviour
         else if (x > bounds.max.x)
             cameraPosition.x = bounds.max.x;
         else
-            cameraPosition.x = referenceTransform.position.x;
+            cameraPosition.x = x;
 
+        if (this.isLimited && (x < this.limitedX))
+            cameraPosition.x = this.limitedX;
+        
         this.cameraTransform.position = cameraPosition;
     }
 }
