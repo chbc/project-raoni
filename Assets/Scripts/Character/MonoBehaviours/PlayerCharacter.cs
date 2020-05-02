@@ -28,6 +28,7 @@ namespace Gamekit2D
         public float maxSpeed = 10f;
         public float groundAcceleration = 100f;
         public float groundDeceleration = 100f;
+        public float maxRunSpeed = 8.0f;
         [Range(0f, 1f)] public float pushingSpeedProportion;
 
         [Range(0f, 1f)] public float airborneAccelProportion;
@@ -426,8 +427,11 @@ namespace Gamekit2D
 
         public void GroundedHorizontalMovement(bool useInput, float speedScale = 1f)
         {
-            float desiredSpeed = useInput ? PlayerInput.Instance.Horizontal.Value * maxSpeed * speedScale : 0f;
-            float acceleration = useInput && PlayerInput.Instance.Horizontal.ReceivingInput ? groundAcceleration : groundDeceleration;
+            PlayerInput playerInput = PlayerInput.Instance;
+            float maxSpeedResult = playerInput.Run.Held ? maxRunSpeed : maxSpeed;
+            
+            float desiredSpeed = useInput ? playerInput.Horizontal.Value * maxSpeedResult * speedScale : 0f;
+            float acceleration = useInput && playerInput.Horizontal.ReceivingInput ? groundAcceleration : groundDeceleration;
             m_MoveVector.x = Mathf.MoveTowards(m_MoveVector.x, desiredSpeed, acceleration * Time.deltaTime);
 
             if (useInput)

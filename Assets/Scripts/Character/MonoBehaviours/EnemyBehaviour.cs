@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ProjectRaoni;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,11 +14,7 @@ namespace Gamekit2D
     {
         static Collider2D[] s_ColliderCache = new Collider2D[16];
 
-        public Vector3 moveVector { get { return m_MoveVector; } }
         public Transform Target { get { return m_Target; } }
-
-        [Tooltip("If the sprite face left on the spritesheet, enable this. Otherwise, leave disabled")]
-        public bool spriteFaceLeft = false;
 
         [Header("Movement")]
         public float speed;
@@ -61,7 +58,6 @@ namespace Gamekit2D
         [Tooltip("Time in seconds during which the enemy flicker after being hit")]
         public float flickeringDuration;
 
-        protected SpriteRenderer m_SpriteRenderer;
         protected CharacterController2D m_CharacterController2D;
         protected Collider2D m_Collider;
         protected Animator m_Animator;
@@ -82,7 +78,6 @@ namespace Gamekit2D
         protected ContactFilter2D m_Filter;
 
         protected Coroutine m_FlickeringCoroutine = null;
-        protected Color m_OriginalColor;
 
         protected BulletPool m_BulletPool;
 
@@ -95,21 +90,22 @@ namespace Gamekit2D
         protected readonly int m_HashHitPara = Animator.StringToHash("Hit");
         protected readonly int m_HashDeathPara = Animator.StringToHash("Death");
         protected readonly int m_HashGroundedPara = Animator.StringToHash("Grounded");
-
+        
+        [SerializeField]
+        private PlayerAnimationController animationController;
+        
         private void Awake()
         {
             m_CharacterController2D = GetComponent<CharacterController2D>();
             m_Collider = GetComponent<Collider2D>();
             m_Animator = GetComponent<Animator>();
-            m_SpriteRenderer = GetComponent<SpriteRenderer>();
-
-            m_OriginalColor = m_SpriteRenderer.color;
 
             if(projectilePrefab != null)
                 m_BulletPool = BulletPool.GetObjectPool(projectilePrefab.gameObject, 8);
 
-            m_SpriteForward = spriteFaceLeft ? Vector2.left : Vector2.right;
-            if (m_SpriteRenderer.flipX) m_SpriteForward = -m_SpriteForward;
+            m_SpriteForward = animationController.IsFacingLeft ? Vector2.left : Vector2.right;
+            if (!animationController.IsFacingLeft)
+                m_SpriteForward = -m_SpriteForward;
 
             if(meleeDamager != null)
                 EndAttack();
@@ -142,6 +138,8 @@ namespace Gamekit2D
 
             if (meleeDamager)
                 m_LocalDamagerPosition = meleeDamager.transform.localPosition;
+            
+            this.SetOrientation(true);
         }
 
         void FixedUpdate()
@@ -171,7 +169,9 @@ namespace Gamekit2D
 
         public void SetHorizontalSpeed(float horizontalSpeed)
         {
-            m_MoveVector.x = horizontalSpeed * m_SpriteForward.x;
+            float speedResult = horizontalSpeed * m_SpriteForward.x;
+            m_MoveVector.x = speedResult;
+            this.animationController.UpdateGroundedAnimation(speedResult);
         }
 
         public bool CheckForObstacle(float forwardDistance)
@@ -193,20 +193,6 @@ namespace Gamekit2D
             return false;
         }
 
-        public void SetFacingData(int facing)
-        {
-            if (facing == -1)
-            {
-                m_SpriteRenderer.flipX = !spriteFaceLeft;
-                m_SpriteForward = spriteFaceLeft ? Vector2.right : Vector2.left;
-            }
-            else if (facing == 1)
-            {
-                m_SpriteRenderer.flipX = spriteFaceLeft;
-                m_SpriteForward = spriteFaceLeft ? Vector2.left : Vector2.right;
-            }
-        }
-
         public void SetMoveVector(Vector2 newMoveVector)
         {
             m_MoveVector = newMoveVector;
@@ -219,11 +205,11 @@ namespace Gamekit2D
 
             if (faceLeft)
             {
-                SetFacingData(-1);
+                SetOrientation(true);
             }
             else if (faceRight)
             {
-                SetFacingData(1);
+                SetOrientation(false);
             }
         }
 
@@ -240,6 +226,7 @@ namespace Gamekit2D
                 return;
             }
 
+            bool spriteFaceLeft = this.animationController.IsFacingLeft;
             Vector3 testForward = Quaternion.Euler(0, 0, spriteFaceLeft ? Mathf.Sign(m_SpriteForward.x) * -viewDirection : Mathf.Sign(m_SpriteForward.x) * viewDirection) * m_SpriteForward;
 
             float angle = Vector3.Angle(testForward, dir);
@@ -264,7 +251,7 @@ namespace Gamekit2D
 
             if (Vector2.Dot(toTarget, m_SpriteForward) < 0)
             {
-                SetFacingData(Mathf.RoundToInt(-m_SpriteForward.x));
+                SetOrientation(Mathf.RoundToInt(-m_SpriteForward.x) < 0);
             }
         }
 
@@ -277,11 +264,10 @@ namespace Gamekit2D
 
             if (toTarget.sqrMagnitude < viewDistance * viewDistance)
             {
+                bool spriteFaceLeft = this.animationController.IsFacingLeft;
                 Vector3 testForward = Quaternion.Euler(0, 0, spriteFaceLeft ? -viewDirection : viewDirection) * m_SpriteForward;
-                if (m_SpriteRenderer.flipX) testForward.x = -testForward.x;
-
+                
                 float angle = Vector3.Angle(testForward, toTarget);
-
                 if (angle <= viewFov * 0.5f)
                 {
                     //we reset the timer if the target is at viewing distance.
@@ -330,7 +316,7 @@ namespace Gamekit2D
         //This is called when the damager get enabled (so the enemy can damage the player). Likely be called by the animation throught animation event (see the attack animation of the Chomper)
         public void StartAttack()
         {
-            if (m_SpriteRenderer.flipX)
+            if (this.animationController.IsFacingLeft)
                 meleeDamager.transform.localPosition = Vector3.Scale(m_LocalDamagerPosition, new Vector3(-1, 1, 1));
             else
                 meleeDamager.transform.localPosition = m_LocalDamagerPosition;
@@ -374,6 +360,8 @@ namespace Gamekit2D
         {
             Vector2 shootPosition = shootingOrigin.transform.localPosition;
 
+            bool spriteFaceLeft = this.animationController.IsFacingLeft;
+            
             //if we are flipped compared to normal, we need to localy flip the shootposition too
             if ((spriteFaceLeft && m_SpriteForward.x > 0) || (!spriteFaceLeft && m_SpriteForward.x > 0))
                 shootPosition.x *= -1;
@@ -479,40 +467,26 @@ namespace Gamekit2D
             if (m_FlickeringCoroutine != null)
             {
                 StopCoroutine(m_FlickeringCoroutine);
-                m_SpriteRenderer.color = m_OriginalColor;
             }
 
             m_FlickeringCoroutine = StartCoroutine(Flicker(damageable));
             CameraShaker.Shake(0.15f, 0.3f);
         }
 
-
+        protected WaitForSeconds m_FlickeringWait = new WaitForSeconds(1.0f);
 
         protected IEnumerator Flicker(Damageable damageable)
         {
             float timer = 0f;
-            float sinceLastChange = 0.0f;
-
-            Color transparent = m_OriginalColor;
-            transparent.a = 0.2f;
-            int state = 1;
-
-            m_SpriteRenderer.color = transparent;
 
             while (timer < damageable.invulnerabilityDuration)
             {
-                yield return null;
-                timer += Time.deltaTime;
-                sinceLastChange += Time.deltaTime;
-                if(sinceLastChange > flickeringDuration)
-                {
-                    sinceLastChange -= flickeringDuration;
-                    state = 1 - state;
-                    m_SpriteRenderer.color = state == 1 ? transparent : m_OriginalColor;
-                }
+                this.animationController.ToggleRendererVisibility();
+                yield return m_FlickeringWait;
+                timer += flickeringDuration;
             }
 
-            m_SpriteRenderer.color = m_OriginalColor;
+            this.animationController.SetRendererEnabled(true);
         }
 
         public void DisableDamage ()
@@ -527,15 +501,22 @@ namespace Gamekit2D
         {
             footStepAudio.PlayRandomSound();
         }
+        
+        private void SetOrientation(bool left)
+        {
+            if (this.animationController != null)
+                this.animationController.SetOrientation(left, this.meleeDamager.SetXDirection);
+
+            m_SpriteForward = left ? Vector2.left : Vector2.right;
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmosSelected()
         {
+            
             //draw the cone of view
-            Vector3 forward = spriteFaceLeft ? Vector2.left : Vector2.right;
-            forward = Quaternion.Euler(0, 0, spriteFaceLeft ? -viewDirection : viewDirection) * forward;
-
-            if (GetComponent<SpriteRenderer>().flipX) forward.x = -forward.x;
+            Vector3 forward = Vector2.left;
+            forward = Quaternion.Euler(0, 0, -viewDirection) * forward;
 
             Vector3 endpoint = transform.position + (Quaternion.Euler(0, 0, viewFov * 0.5f) * forward);
 
@@ -585,6 +566,7 @@ namespace Gamekit2D
             else
                 return base.GetPropertyHeight(property, label);
         }
+ 
     }
 #endif
 }

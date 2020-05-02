@@ -17,6 +17,7 @@ namespace Gamekit2D
         SerializedProperty m_GroundAccelerationProp;
         SerializedProperty m_GroundDecelerationProp;
         SerializedProperty m_PushingSpeedProportionProp;
+        SerializedProperty m_MaxRunSpeedProp;
 
         SerializedProperty m_AirborneAccelProportionProp;
         SerializedProperty m_AirborneDecelProportionProp;
@@ -72,6 +73,7 @@ namespace Gamekit2D
         readonly GUIContent m_GroundAccelerationContent = new GUIContent("Ground Acceleration");
         readonly GUIContent m_GroundDecelerationContent = new GUIContent("Ground Deceleration");
         readonly GUIContent m_PushingSpeedProportionContent = new GUIContent("Pushing Speed Proportion");
+        readonly GUIContent m_MaxRunSpeedContent = new GUIContent("Max Run Speed");
 
         readonly GUIContent m_AirborneAccelProportionContent = new GUIContent("Airborne Accel Proportion");
         readonly GUIContent m_AirborneDecelProportionContent = new GUIContent("Airborne Decel Proportion");
@@ -129,6 +131,7 @@ namespace Gamekit2D
             m_GroundAccelerationProp = serializedObject.FindProperty("groundAcceleration");
             m_GroundDecelerationProp = serializedObject.FindProperty("groundDeceleration");
             m_PushingSpeedProportionProp = serializedObject.FindProperty ("pushingSpeedProportion");
+            m_MaxRunSpeedProp = serializedObject.FindProperty("maxRunSpeed");
 
             m_AirborneAccelProportionProp = serializedObject.FindProperty("airborneAccelProportion");
             m_AirborneDecelProportionProp = serializedObject.FindProperty("airborneDecelProportion");
@@ -197,6 +200,7 @@ namespace Gamekit2D
                 EditorGUILayout.PropertyField(m_GroundAccelerationProp, m_GroundAccelerationContent);
                 EditorGUILayout.PropertyField(m_GroundDecelerationProp, m_GroundDecelerationContent);
                 EditorGUILayout.PropertyField (m_PushingSpeedProportionProp, m_PushingSpeedProportionContent);
+                EditorGUILayout.PropertyField(m_MaxRunSpeedProp, m_MaxRunSpeedContent);
             }
 
             EditorGUI.indentLevel--;

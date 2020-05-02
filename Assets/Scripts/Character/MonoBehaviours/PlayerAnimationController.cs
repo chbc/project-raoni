@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace ProjectRaoni
 {
     public class PlayerAnimationController : SpriteAnimationController
     {
         [SerializeField] private string IDLE    = "idle";
+        [SerializeField] private string WALK    = "run";
         [SerializeField] private string RUN     = "run";
         [SerializeField] private string ATTACK1 = "atk1";
         [SerializeField] private string ATTACK2 = "atk2";
@@ -15,6 +15,7 @@ namespace ProjectRaoni
         [SerializeField] private string DEATH   = "dead";
 
         [SerializeField] private Material overrideMaterial = null;
+        [SerializeField] private float runSpeedTreshold = 4.0f;
         
         public bool IsFacingLeft { get; private set; }
 
@@ -59,12 +60,22 @@ namespace ProjectRaoni
 
         public void UpdateGroundedAnimation(float movementSpeed)
         {
-            if (Mathf.Abs(movementSpeed) > 0.01f)
+            movementSpeed = Mathf.Abs(movementSpeed); 
+            
+            if (movementSpeed > 0.01f)
             {
-                if (this.currentAnimationName != RUN)
+                if (movementSpeed > this.runSpeedTreshold)
                 {
-                    this.currentAnimationName = RUN;
-                    this.PlayAnimation(RUN);
+                    if (this.currentAnimationName != RUN)
+                    {
+                        this.currentAnimationName = RUN;
+                        this.PlayAnimation(RUN);
+                    }
+                }
+                else if (this.currentAnimationName != WALK)
+                {
+                    this.currentAnimationName = WALK;
+                    this.PlayAnimation(WALK);
                 }
             }
             else if (this.currentAnimationName != IDLE)

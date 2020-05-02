@@ -304,6 +304,10 @@ MonoBehaviour:
     key: 32
     controllerButton: 1
     m_Enabled: 1
+  Run:
+    key: 304
+    controllerButton: 10
+    m_Enabled: 1
   Horizontal:
     positive: 100
     negative: 97
@@ -333,9 +337,10 @@ MonoBehaviour:
   facingRightBulletSpawnPoint: {fileID: 4929711121330312}
   bulletPool: {fileID: 114680495344679792}
   cameraFollowTarget: {fileID: 4530920980854552}
-  maxSpeed: 7
+  maxSpeed: 1.5
   groundAcceleration: 100
   groundDeceleration: 100
+  maxRunSpeed: 7
   pushingSpeedProportion: 0.5
   airborneAccelProportion: 1
   airborneDecelProportion: 0.5
@@ -1105,7 +1110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4788534103049770
 Transform:
   m_ObjectHideFlags: 0
@@ -1580,7 +1585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4936532561290520
 Transform:
   m_ObjectHideFlags: 0
@@ -1701,9 +1706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b94d81eff61f3eb4b8f3c5143ac8efcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skeletonPath: CorpoSeco/CorpoSeco_animation_ske
-  _atlasPath: CorpoSeco/CorpoSeco_animation_tex
-  _armatureName: Armature
+  _skeletonPath: Towe/towe_animation_DB_ske
+  _atlasPath: Towe/towe_animation_DB_tex
+  _armatureName: TOWE
   _playIdleOnStart: 1
 --- !u!114 &8533353537707433358
 MonoBehaviour:
@@ -1729,13 +1734,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe2ea1c37e26424e98b8304681c38f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IDLE: idle
-  RUN: run
-  ATTACK1: atk1
-  ATTACK2: atk2
-  HIT: hit
-  DEATH: dead
+  IDLE: idle_1
+  WALK: Walk_1
+  RUN: Run_
+  ATTACK1: Atk_1
+  ATTACK2: Atk_2
+  HIT: Hit_
+  DEATH: 
   overrideMaterial: {fileID: 0}
+  runSpeedTreshold: 4
 --- !u!1 &3012990066692873457
 GameObject:
   m_ObjectHideFlags: 0
