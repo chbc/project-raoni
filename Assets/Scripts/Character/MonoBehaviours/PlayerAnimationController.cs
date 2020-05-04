@@ -21,8 +21,8 @@ namespace ProjectRaoni
 
         private string currentAnimationName;
 
-        private readonly Quaternion LEFT_ORIENTATION = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-        private readonly Quaternion RIGHT_ORIENTATION = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        private readonly Vector3 LEFT_ORIENTATION = new Vector3(-1.0f, 1.0f, 1.0f);
+        private readonly Vector3 RIGHT_ORIENTATION = new Vector3(1.0f, 1.0f, 1.0f);
         
         private Renderer[] meshRenderers;
 
@@ -38,7 +38,7 @@ namespace ProjectRaoni
             if (this.overrideMaterial != null)
             {
                 this.meshRenderers = base.GetComponentsInChildren<Renderer>();
-                StartCoroutine(this.UpdateMaterial());
+                StartCoroutine(this.UpdateMaterial(-1.0f));
             }
         }
         
@@ -46,13 +46,13 @@ namespace ProjectRaoni
         {
             if (left && !this.IsFacingLeft)
             {
-                this.transform.rotation = LEFT_ORIENTATION;
+                this.transform.localScale = LEFT_ORIENTATION;
                 this.IsFacingLeft = true;
                 meleeOrientationCallback(-1.0f);
             }
             else if (!left && this.IsFacingLeft)
             {
-                this.transform.transform.rotation = RIGHT_ORIENTATION;
+                this.transform.localScale = RIGHT_ORIENTATION;
                 this.IsFacingLeft = false;
                 meleeOrientationCallback(1.0f);
             }
@@ -80,21 +80,23 @@ namespace ProjectRaoni
             }
             else if (this.currentAnimationName != IDLE)
             {
+                float fadeTime = (this.currentAnimationName == ATTACK1) ? 0.1f : -1.0f;
+                
                 this.currentAnimationName = IDLE;
-                this.PlayAnimation(IDLE);
+                this.PlayAnimation(IDLE, -1, fadeTime);
             }
         }
 
         public void PlayMeleeAttack()
         {
             this.currentAnimationName = ATTACK1;
-            this.PlayAnimation(ATTACK1);
+            this.PlayAnimation(ATTACK1, 1, 0.05f);
         }
 
         public void PlayRangedAttack()
         {
             this.currentAnimationName = ATTACK2;
-            this.PlayAnimation(ATTACK2);
+            this.PlayAnimation(ATTACK2, 1);
         }
 
         public void SetRendererEnabled(bool isEnabled)
@@ -107,18 +109,21 @@ namespace ProjectRaoni
 
         }
 
-        private void PlayAnimation(string animationName)
+        private void PlayAnimation(string animationName, int playTimes = -1, float fadeTime = -1.0f)
         {
-            base.Play(animationName);
-            StartCoroutine(this.UpdateMaterial());
+            base.Play(animationName, playTimes, fadeTime);
+            StartCoroutine(this.UpdateMaterial(fadeTime));
         }
         
-        private IEnumerator UpdateMaterial()
+        private IEnumerator UpdateMaterial(float fadeTime)
         {
-            yield return null;
-            
             if (this.overrideMaterial == null)
                 yield break;
+            
+            if (fadeTime > 0)
+                yield return new WaitForSeconds(fadeTime);
+            
+            yield return new WaitForEndOfFrame();
             
             for (int i = 0; i < this.meshRenderers.Length; i++)
             {

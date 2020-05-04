@@ -340,7 +340,7 @@ MonoBehaviour:
   maxSpeed: 1.5
   groundAcceleration: 100
   groundDeceleration: 100
-  maxRunSpeed: 7
+  maxRunSpeed: 6.5
   pushingSpeedProportion: 0.5
   airborneAccelProportion: 1
   airborneDecelProportion: 0.5
@@ -361,7 +361,7 @@ MonoBehaviour:
   bulletSpeed: 30
   holdingGunTimeoutDuration: 1.5
   rightBulletSpawnPointAnimated: 1
-  cameraHorizontalFacingOffset: 1
+  cameraHorizontalFacingOffset: 2
   cameraHorizontalSpeedOffset: 0.05
   cameraVerticalInputOffset: 2
   maxHorizontalDeltaDampTime: 0.4

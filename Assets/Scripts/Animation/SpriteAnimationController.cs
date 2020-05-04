@@ -13,9 +13,9 @@ namespace ProjectRaoni
             this.animation = armature.animation;
         }
 
-        public void Play(string animationName, float fadeInTime = -1.0f)
+        public void Play(string animationName, int playTimes, float fadeTime = -1.0f)
         {
-            this.animation.FadeIn(animationName, fadeInTime);
+            this.animation.FadeIn(animationName, fadeTime, playTimes);
         }
     }
 }
