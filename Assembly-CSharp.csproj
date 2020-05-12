@@ -140,6 +140,7 @@
      <Compile Include="Assets\Scripts\Objects\WeaponPickup.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\CameraZoneTransition.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\CharacterStateSetter.cs" />
+     <Compile Include="Assets\Scripts\SceneManagement\EnemiesSpawnTrigger.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\GameObjectTeleporter.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\IDataPersister.cs" />
      <Compile Include="Assets\Scripts\SceneManagement\PersistentDataManager.cs" />

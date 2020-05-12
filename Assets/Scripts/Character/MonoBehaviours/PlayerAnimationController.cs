@@ -16,6 +16,8 @@ namespace ProjectRaoni
 
         [SerializeField] private Material overrideMaterial = null;
         [SerializeField] private float runSpeedTreshold = 4.0f;
+
+        private bool isLocked;
         
         public bool IsFacingLeft { get; private set; }
 
@@ -30,6 +32,7 @@ namespace ProjectRaoni
         {
             this.currentAnimationName = IDLE;
             this.IsFacingLeft = false;
+            this.isLocked = false;
         }
         
         protected override void Start()
@@ -91,28 +94,75 @@ namespace ProjectRaoni
         {
             this.currentAnimationName = ATTACK1;
             this.PlayAnimation(ATTACK1, 1, 0.05f);
+
+            StartCoroutine(LockWaitAndUnlockAnimation());
         }
 
         public void PlayRangedAttack()
         {
             this.currentAnimationName = ATTACK2;
             this.PlayAnimation(ATTACK2, 1);
+            
+            StartCoroutine(LockWaitAndUnlockAnimation());
+        }
+
+        public void PlayHit()
+        {
+            this.currentAnimationName = HIT;
+            this.PlayAnimation(HIT, 1);
+
+            StartCoroutine(LockWaitAndUnlockAnimation(false));
+        }
+        
+        public void PlayDie()
+        {
+            base.Stop();
+            this.isLocked = false;
+            this.currentAnimationName = DEATH;
+            this.PlayAnimation(DEATH, 1);
+
+            StartCoroutine(LockWaitAndUnlockAnimation(false));
         }
 
         public void SetRendererEnabled(bool isEnabled)
         {
-            
+            for (int i = 0; i < this.meshRenderers.Length; i++)
+            {
+                this.meshRenderers[i].enabled = true;
+            }
         }
 
         public void ToggleRendererVisibility()
         {
+            for (int i = 0; i < this.meshRenderers.Length; i++)
+            {
+                this.meshRenderers[i].enabled = !this.meshRenderers[i].enabled;
+            }
+        }
 
+        private IEnumerator LockWaitAndUnlockAnimation(bool playIdleAfterUnlock = true)
+        {
+            this.isLocked = true;
+            yield return null;
+
+            while (base.IsPlaying())
+            {
+                yield return null;
+            }
+
+            this.isLocked = false;
+            
+            if (playIdleAfterUnlock)
+                this.PlayAnimation(IDLE);
         }
 
         private void PlayAnimation(string animationName, int playTimes = -1, float fadeTime = -1.0f)
         {
-            base.Play(animationName, playTimes, fadeTime);
-            StartCoroutine(this.UpdateMaterial(fadeTime));
+            if (!this.isLocked)
+            {
+                base.Play(animationName, playTimes, fadeTime);
+                StartCoroutine(this.UpdateMaterial(fadeTime));
+            }
         }
         
         private IEnumerator UpdateMaterial(float fadeTime)

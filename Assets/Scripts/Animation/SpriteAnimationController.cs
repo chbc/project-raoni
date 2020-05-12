@@ -17,5 +17,15 @@ namespace ProjectRaoni
         {
             this.animation.FadeIn(animationName, fadeTime, playTimes);
         }
+
+        public void Stop()
+        {
+            this.animation.Stop();
+        }
+
+        public bool IsPlaying()
+        {
+            return this.animation.isPlaying;
+        }
     }
 }

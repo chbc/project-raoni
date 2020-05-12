@@ -704,6 +704,7 @@ namespace Gamekit2D
             damageable.EnableInvulnerability();
 
             m_Animator.SetTrigger(m_HashHurtPara);
+            this.animationController.PlayHit();
 
             //we only force respawn if helath > 0, otherwise both forceRespawn & Death trigger are set in the animator, messing with each other.
             if(damageable.CurrentHealth > 0 && damager.forceRespawn)
@@ -722,6 +723,7 @@ namespace Gamekit2D
         public void OnDie()
         {
             m_Animator.SetTrigger(m_HashDeadPara);
+            this.animationController.PlayDie();
 
             StartCoroutine(DieRespawnCoroutine(true, false));
         }
@@ -732,7 +734,7 @@ namespace Gamekit2D
             yield return new WaitForSeconds(1.0f); //wait one second before respawing
             yield return StartCoroutine(ScreenFader.FadeSceneOut(useCheckPoint ? ScreenFader.FadeType.Black : ScreenFader.FadeType.GameOver));
             if(!useCheckPoint)
-                yield return new WaitForSeconds (2f);
+                yield return new WaitForSeconds (4f);
             Respawn(resetHealth, useCheckPoint);
             yield return new WaitForEndOfFrame();
             yield return StartCoroutine(ScreenFader.FadeSceneIn());
@@ -758,6 +760,7 @@ namespace Gamekit2D
         public void MeleeAttack()
         {
             m_Animator.SetTrigger(m_HashMeleeAttackPara);
+            this.animationController.PlayMeleeAttack();
         }
 
         public void EnableMeleeAttack()
@@ -767,7 +770,6 @@ namespace Gamekit2D
             meleeAttackAudioPlayer.PlayRandomSound();
 
             m_MoveVector.x = 0;
-            this.animationController.PlayMeleeAttack();
         }
 
         public void DisableMeleeAttack()

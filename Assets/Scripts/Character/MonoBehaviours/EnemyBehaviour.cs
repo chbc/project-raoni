@@ -310,6 +310,7 @@ namespace Gamekit2D
             {
                 m_Animator.SetTrigger(m_HashMeleeAttackPara);
                 meleeAttackAudio.PlayRandomSound();
+                this.animationController.PlayMeleeAttack();
             }
         }
 
@@ -442,6 +443,7 @@ namespace Gamekit2D
             SetMoveVector(throwVector);
 
             m_Animator.SetTrigger(m_HashDeathPara);
+            this.animationController.PlayDie();
 
             dieAudio.PlayRandomSound();
 
@@ -457,6 +459,7 @@ namespace Gamekit2D
                 return;
 
             m_Animator.SetTrigger(m_HashHitPara);
+            this.animationController.PlayHit();
 
             Vector2 throwVector = new Vector2(0, 3.0f);
             Vector2 damagerToThis = damager.transform.position - transform.position;
@@ -464,15 +467,18 @@ namespace Gamekit2D
             throwVector.x = Mathf.Sign(damagerToThis.x) * -2.0f;
             m_MoveVector = throwVector;
 
+            /* ###
             if (m_FlickeringCoroutine != null)
             {
                 StopCoroutine(m_FlickeringCoroutine);
             }
 
             m_FlickeringCoroutine = StartCoroutine(Flicker(damageable));
+            */
             CameraShaker.Shake(0.15f, 0.3f);
         }
 
+        /* ###
         protected WaitForSeconds m_FlickeringWait = new WaitForSeconds(1.0f);
 
         protected IEnumerator Flicker(Damageable damageable)
@@ -488,6 +494,7 @@ namespace Gamekit2D
 
             this.animationController.SetRendererEnabled(true);
         }
+        */
 
         public void DisableDamage ()
         {
