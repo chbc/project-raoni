@@ -1740,7 +1740,7 @@ MonoBehaviour:
   ATTACK1: Atk_1
   ATTACK2: Atk_2
   HIT: Hit_
-  DEATH: 
+  DEATH: Hit_
   overrideMaterial: {fileID: 0}
   runSpeedTreshold: 4
 --- !u!1 &3012990066692873457

@@ -989,7 +989,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83dfa83e29f454446b6abdda921f4bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
+  walkSpeed: 2.6
+  runSpeed: 6
+  speed: 2.6
   gravity: 10
   projectilePrefab: {fileID: 0}
   viewDirection: 0
@@ -1136,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IDLE: idle
-  WALK: run
+  WALK: walk
   RUN: run
   ATTACK1: atk1
   ATTACK2: atk2

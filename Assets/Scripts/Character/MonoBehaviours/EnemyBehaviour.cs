@@ -17,6 +17,8 @@ namespace Gamekit2D
         public Transform Target { get { return m_Target; } }
 
         [Header("Movement")]
+        public float walkSpeed = 1.5f;
+        public float runSpeed = 6.0f;
         public float speed;
         public float gravity = 10.0f;
 
@@ -109,6 +111,8 @@ namespace Gamekit2D
 
             if(meleeDamager != null)
                 EndAttack();
+
+            this.speed = Random.Range(0.0f, 1.0f) > 0.3f ? this.walkSpeed : this.runSpeed;
         }
 
         private void OnEnable()
@@ -219,6 +223,7 @@ namespace Gamekit2D
             if (!PlayerInput.Instance.HaveControl)
                 return;
 
+            /* 
             Vector3 dir = PlayerCharacter.PlayerInstance.transform.position - transform.position;
 
             if (dir.sqrMagnitude > viewDistance * viewDistance)
@@ -235,9 +240,10 @@ namespace Gamekit2D
             {
                 return;
             }
+            */
 
             m_Target = PlayerCharacter.PlayerInstance.transform;
-            m_TimeSinceLastTargetView = timeBeforeTargetLost;
+            m_TimeSinceLastTargetView = timeBeforeTargetLost + Random.Range(-2.0f, 2.0f);
 
             m_Animator.SetTrigger(m_HashSpottedPara);
         }
@@ -451,6 +457,8 @@ namespace Gamekit2D
             m_Collider.enabled = false;
 
             CameraShaker.Shake(0.15f, 0.3f);
+            
+            EnemiesController.Instance.DecrementEnemies();
         }
 
         public void Hit(Damager damager, Damageable damageable)

@@ -731,7 +731,7 @@ namespace Gamekit2D
         IEnumerator DieRespawnCoroutine(bool resetHealth, bool useCheckPoint)
         {
             PlayerInput.Instance.ReleaseControl(true);
-            yield return new WaitForSeconds(1.0f); //wait one second before respawing
+            yield return new WaitForSeconds(0.5f); //wait one second before respawing
             yield return StartCoroutine(ScreenFader.FadeSceneOut(useCheckPoint ? ScreenFader.FadeType.Black : ScreenFader.FadeType.GameOver));
             if(!useCheckPoint)
                 yield return new WaitForSeconds (4f);

@@ -38,9 +38,10 @@ namespace ProjectRaoni
         protected override void Start()
         {
             base.Start();
+            this.meshRenderers = base.GetComponentsInChildren<Renderer>();
+            
             if (this.overrideMaterial != null)
             {
-                this.meshRenderers = base.GetComponentsInChildren<Renderer>();
                 StartCoroutine(this.UpdateMaterial(-1.0f));
             }
         }

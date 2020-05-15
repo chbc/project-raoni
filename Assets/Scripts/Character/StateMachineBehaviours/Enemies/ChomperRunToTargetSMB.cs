@@ -20,7 +20,7 @@ namespace Gamekit2D
             m_MonoBehaviour.CheckTargetStillVisible();
             m_MonoBehaviour.CheckMeleeAttack();
 
-            float amount = m_MonoBehaviour.speed * 2.0f;
+            float amount = m_MonoBehaviour.speed;
             if (m_MonoBehaviour.CheckForObstacle(amount))
             {
                 m_MonoBehaviour.ForgetTarget();

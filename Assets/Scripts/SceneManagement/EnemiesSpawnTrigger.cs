@@ -5,7 +5,7 @@ namespace ProjectRaoni
     [RequireComponent(typeof(BoxCollider2D))]
     public class EnemiesSpawnTrigger : MonoBehaviour
     {
-        [SerializeField] private GameObject enemySpawner = null;
+        [SerializeField] private GameObject[] enemySpawners = null;
 
         private bool isActive = true; 
         
@@ -15,7 +15,9 @@ namespace ProjectRaoni
             {
                 if (other.gameObject.CompareTag("Player"))
                 {
-                    this.enemySpawner.SetActive(true);
+                    foreach (GameObject item in this.enemySpawners)
+                        item.SetActive(true);
+                    
                     this.isActive = false;
                 }
             }
