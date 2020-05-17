@@ -295,15 +295,15 @@ MonoBehaviour:
   MeleeAttack:
     key: 107
     controllerButton: 3
-    m_Enabled: 0
+    m_Enabled: 1
   RangedAttack:
     key: 111
     controllerButton: 10
-    m_Enabled: 0
+    m_Enabled: 1
   Jump:
     key: 32
     controllerButton: 1
-    m_Enabled: 1
+    m_Enabled: 0
   Run:
     key: 304
     controllerButton: 10
