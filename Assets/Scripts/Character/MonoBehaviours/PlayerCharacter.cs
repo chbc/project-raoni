@@ -719,6 +719,9 @@ namespace Gamekit2D
             {
                 StartCoroutine(DieRespawnCoroutine());
             }
+
+            float lifeRation = damageable.CurrentHealth / (float)damageable.startingHealth;
+            PlayerHUD.Instance.UpdateLifeBar(lifeRation);
         }
 
         public void OnDie()

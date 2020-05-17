@@ -164,7 +164,9 @@
      <Compile Include="Assets\Scripts\UI\KeyUI.cs" />
      <Compile Include="Assets\Scripts\UI\MenuActivityController.cs" />
      <Compile Include="Assets\Scripts\UI\OptionUI.cs" />
+     <Compile Include="Assets\Scripts\UI\PlayerHUD.cs" />
      <Compile Include="Assets\Scripts\UI\StartUI.cs" />
+     <Compile Include="Assets\Scripts\UI\ZoneDescription.cs" />
      <Compile Include="Assets\Scripts\Utility\AutoCameraSetup.cs" />
      <Compile Include="Assets\Scripts\Utility\DialogueCanvasController.cs" />
      <Compile Include="Assets\Scripts\Utility\DragonBones\Scripts\unity\MeshBuffer.cs" />
