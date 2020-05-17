@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using ProjectRaoni;
+using UnityEngine.SceneManagement;
 
 namespace Gamekit2D
 {
@@ -716,7 +717,7 @@ namespace Gamekit2D
             //if the health is < 0, mean die callback will take care of respawn
             if(damager.forceRespawn && damageable.CurrentHealth > 0)
             {
-                StartCoroutine(DieRespawnCoroutine(false, true));
+                StartCoroutine(DieRespawnCoroutine());
             }
         }
 
@@ -725,20 +726,30 @@ namespace Gamekit2D
             m_Animator.SetTrigger(m_HashDeadPara);
             this.animationController.PlayDie();
 
-            StartCoroutine(DieRespawnCoroutine(true, false));
+            StartCoroutine(DieRespawnCoroutine());
         }
 
-        IEnumerator DieRespawnCoroutine(bool resetHealth, bool useCheckPoint)
+        IEnumerator DieRespawnCoroutine()
         {
             PlayerInput.Instance.ReleaseControl(true);
             yield return new WaitForSeconds(0.5f); //wait one second before respawing
-            yield return StartCoroutine(ScreenFader.FadeSceneOut(useCheckPoint ? ScreenFader.FadeType.Black : ScreenFader.FadeType.GameOver));
-            if(!useCheckPoint)
-                yield return new WaitForSeconds (4f);
-            Respawn(resetHealth, useCheckPoint);
-            yield return new WaitForEndOfFrame();
+
+            SceneController.RestartZone();
+
+            /*
+            yield return StartCoroutine(ScreenFader.FadeSceneOut(ScreenFader.FadeType.GameOver));
+            
+            yield return new WaitForSeconds(2.0f);
+
+            SceneController.RestartZone();
+            
+            // SceneManager.LoadScene("Start");
+
+            while (SceneController.Transitioning)
+                yield return null;
+            
             yield return StartCoroutine(ScreenFader.FadeSceneIn());
-            PlayerInput.Instance.GainControl();
+            */
         }
 
         public void StartFlickering()

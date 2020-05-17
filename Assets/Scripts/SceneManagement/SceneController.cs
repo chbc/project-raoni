@@ -84,6 +84,9 @@ namespace Gamekit2D
                 PlayerCharacter.PlayerInstance.damageable.SetHealth(PlayerCharacter.PlayerInstance.damageable.startingHealth);
             }
 
+            if (string.IsNullOrEmpty(Instance.m_CurrentZoneScene.name))
+                Instance.m_CurrentZoneScene = SceneManager.GetActiveScene();
+            
             Instance.StartCoroutine(Instance.Transition(Instance.m_CurrentZoneScene.name, true, Instance.m_ZoneRestartDestinationTag, TransitionPoint.TransitionType.DifferentZone));
         }
 
