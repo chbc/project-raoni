@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3187,12 +3187,12 @@ PrefabInstance:
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 514
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -327
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
@@ -3227,22 +3227,22 @@ PrefabInstance:
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_Pivot.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8729938138387118891, guid: c4a3cec54b80c694e8749fb3ecffc8d3,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4a3cec54b80c694e8749fb3ecffc8d3, type: 3}
@@ -3535,7 +3535,7 @@ PrefabInstance:
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 257.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
@@ -3545,7 +3545,7 @@ PrefabInstance:
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 207.77
+      value: 207.77002
       objectReference: {fileID: 0}
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
@@ -3555,7 +3555,7 @@ PrefabInstance:
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
@@ -3565,7 +3565,7 @@ PrefabInstance:
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
@@ -3575,7 +3575,7 @@ PrefabInstance:
     - target: {fileID: 6116550906907493919, guid: d9d9c9f719f5b2f4db987b2a75f55103,
         type: 3}
       propertyPath: m_Pivot.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9d9c9f719f5b2f4db987b2a75f55103, type: 3}
