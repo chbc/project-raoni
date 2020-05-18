@@ -1,4 +1,5 @@
 ﻿using System;
+using ProjectRaoni;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -161,8 +162,14 @@ namespace Gamekit2D
             Data<int, bool> healthData = (Data<int, bool>)data;
             m_CurrentHealth = healthData.value1 ? startingHealth : healthData.value0;
             OnHealthSet.Invoke(this);
+            
+            this.UpdatePlayerLife();
         }
 
-
+        public void UpdatePlayerLife()
+        {
+            float lifeRation = CurrentHealth / (float) startingHealth;
+            PlayerHUD.Instance.UpdateLifeBar(lifeRation);
+        }
     }
 }

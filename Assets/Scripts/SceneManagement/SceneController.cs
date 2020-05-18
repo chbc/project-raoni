@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using ProjectRaoni;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -124,6 +125,10 @@ namespace Gamekit2D
             SetupNewScene(transitionType, entrance);
             if(entrance != null)
                 entrance.OnReachDestination.Invoke();
+            
+            if (PlayerCharacter.PlayerInstance != null)
+                PlayerCharacter.PlayerInstance.UpdateLife();
+            
             yield return StartCoroutine(ScreenFader.FadeSceneIn());
             m_PlayerInput.GainControl();
 

@@ -714,14 +714,13 @@ namespace Gamekit2D
             m_Animator.SetBool(m_HashGroundedPara, false);
             hurtAudioPlayer.PlayRandomSound();
 
+            this.UpdateLife();
+            
             //if the health is < 0, mean die callback will take care of respawn
             if(damager.forceRespawn && damageable.CurrentHealth > 0)
             {
                 StartCoroutine(DieRespawnCoroutine());
             }
-
-            float lifeRation = damageable.CurrentHealth / (float)damageable.startingHealth;
-            PlayerHUD.Instance.UpdateLifeBar(lifeRation);
         }
 
         public void OnDie()
@@ -840,6 +839,11 @@ namespace Gamekit2D
         public void KeyInventoryEvent()
         {
             if (KeyUI.Instance != null) KeyUI.Instance.ChangeKeyUI(m_InventoryController);
+        }
+
+        public void UpdateLife()
+        {
+            this.damageable.UpdatePlayerLife();
         }
 
         private void SetOrientation(bool left)

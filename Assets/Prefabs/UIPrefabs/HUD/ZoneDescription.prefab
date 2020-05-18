@@ -218,7 +218,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Alvo: Homem \xC1rvore\r\n- Ponte Macedo Duarte -"
+  m_Text: "Alvo: Homem \xC1rvore\r\n- Ponte Duarte de Macedo -"
 --- !u!1 &7422381759352522579
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,4 +295,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '- Rua Rui Branco -'
+  m_Text: '- Av. Rio Branco -'

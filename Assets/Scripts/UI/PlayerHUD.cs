@@ -9,7 +9,7 @@ namespace ProjectRaoni
 
         public static PlayerHUD Instance { get; private set; }
 
-        private void Awake()
+        private void OnEnable()
         {
             Instance = this;
         }

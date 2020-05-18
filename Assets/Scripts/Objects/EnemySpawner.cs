@@ -12,6 +12,7 @@ namespace Gamekit2D
         public float spawnDelay;
         public float removalDelay;
         public DataSettings dataSettings;
+        public bool forceRun = false;
 
         protected int m_TotalSpawnedEnemyCount;
         protected int m_CurrentSpawnedEnemyCount;
@@ -40,7 +41,15 @@ namespace Gamekit2D
 
             for (int i = 0; i < spawnCount; i++)
             {
-                Pop(transform.position + transform.right * Random.Range(-spawnArea * 0.5f, spawnArea * 0.5f));
+                Enemy enemy = Pop(transform.position + transform.right * Random.Range(-spawnArea * 0.5f, spawnArea * 0.5f));
+
+                if (this.forceRun)
+                {
+                    EnemyBehaviour enemyBehaviour = enemy.instance.gameObject.GetComponent<EnemyBehaviour>();
+
+                    if (enemyBehaviour != null)
+                        enemyBehaviour.speed = enemyBehaviour.walkSpeed = enemyBehaviour.runSpeed;
+                }
             }
 
             m_CurrentSpawnedEnemyCount = spawnCount;

@@ -78,6 +78,7 @@ namespace Gamekit2D
                 this.cheatTime -= Time.deltaTime;
                 if (this.cheatTime < 0)
                 {
+                    m_TransitioningGameObjectPresent = true;
                     TransitionInternal();
                 }
             }
