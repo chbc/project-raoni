@@ -79,7 +79,7 @@ namespace Gamekit2D
                 if (this.cheatTime < 0)
                 {
                     m_TransitioningGameObjectPresent = true;
-                    TransitionInternal();
+                    GameObjectTeleporter.Teleport(PlayerCharacter.PlayerInstance.gameObject, this.transform.position + new Vector3(0.0f, 5.0f, 0.0f));
                 }
             }
             else

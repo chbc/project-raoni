@@ -47,6 +47,7 @@ namespace Gamekit2D
         public CanvasGroup loadingCanvasGroup;
         public CanvasGroup gameOverCanvasGroup;
         public float fadeDuration = 1f;
+        public float blackDuration = 1.5f;
 
         protected bool m_IsFading;
     
@@ -75,6 +76,9 @@ namespace Gamekit2D
                 yield return null;
             }
             canvasGroup.alpha = finalAlpha;
+            
+            yield return new WaitForSeconds(blackDuration);
+            
             m_IsFading = false;
             canvasGroup.blocksRaycasts = false;
         }
