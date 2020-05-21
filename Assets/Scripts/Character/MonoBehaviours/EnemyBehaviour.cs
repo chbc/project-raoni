@@ -94,7 +94,9 @@ namespace Gamekit2D
         protected readonly int m_HashGroundedPara = Animator.StringToHash("Grounded");
         
         [SerializeField]
-        private PlayerAnimationController animationController;
+        private PlayerAnimationController animationController = null;
+
+        [SerializeField] private ParticleSystem hitEffect = null;
         
         private void Awake()
         {
@@ -459,6 +461,8 @@ namespace Gamekit2D
             CameraShaker.Shake(0.15f, 0.3f);
             
             EnemiesController.Instance.DecrementEnemies();
+            
+            this.PlayHitEffect();
         }
 
         public void Hit(Damager damager, Damageable damageable)
@@ -484,6 +488,8 @@ namespace Gamekit2D
             m_FlickeringCoroutine = StartCoroutine(Flicker(damageable));
             */
             CameraShaker.Shake(0.15f, 0.3f);
+            
+            this.PlayHitEffect();
         }
 
         /* ###
@@ -503,6 +509,14 @@ namespace Gamekit2D
             this.animationController.SetRendererEnabled(true);
         }
         */
+
+        private void PlayHitEffect()
+        {
+            if (!this.hitEffect.gameObject.activeSelf)
+                this.hitEffect.gameObject.SetActive(true);
+            
+            this.hitEffect.Play();
+        }
 
         public void DisableDamage ()
         {
@@ -581,7 +595,6 @@ namespace Gamekit2D
             else
                 return base.GetPropertyHeight(property, label);
         }
- 
     }
 #endif
 }
