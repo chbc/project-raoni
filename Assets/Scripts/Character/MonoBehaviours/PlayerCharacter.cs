@@ -116,6 +116,8 @@ namespace Gamekit2D
         protected ContactPoint2D[] m_ContactsBuffer = new ContactPoint2D[16];
 
         private PlayerAnimationController animationController;
+        
+        [SerializeField] private ParticleSystem rangedInitialEffect = null;        
 
         // MonoBehaviour Messages - called by Unity internally.
         void Awake()
@@ -312,32 +314,9 @@ namespace Gamekit2D
             this.animationController.SetRendererEnabled(true);
         }
 
-        protected IEnumerator Shoot()
+        protected IEnumerator SpawnBullet()
         {
-            while (PlayerInput.Instance.RangedAttack.Held)
-            {
-                if (Time.time >= m_NextShotTime)
-                {
-                    SpawnBullet();
-                    m_NextShotTime = Time.time + m_ShotSpawnGap;
-                }
-                yield return null;
-            }
-        }
-
-        protected void SpawnBullet()
-        {
-            //we check if there is a wall between the player and the bullet spawn position, if there is, we don't spawn a bullet
-            //otherwise, the player can "shoot throught wall" because the arm extend to the other side of the wall
-            Vector2 testPosition = transform.position;
-            testPosition.y = m_CurrentBulletSpawnPoint.position.y;
-            Vector2 direction = (Vector2)m_CurrentBulletSpawnPoint.position - testPosition;
-            float distance = direction.magnitude;
-            direction.Normalize();
-
-            RaycastHit2D[] results = new RaycastHit2D[12];
-            if (Physics2D.Raycast(testPosition, direction, m_CharacterController2D.ContactFilter, results, distance) > 0)
-                return;
+            yield return new WaitForSeconds(0.35f);
 
             BulletObject bullet = bulletPool.Pop(m_CurrentBulletSpawnPoint.position);
             bool facingLeft = m_CurrentBulletSpawnPoint == facingLeftBulletSpawnPoint;
@@ -652,20 +631,34 @@ namespace Gamekit2D
 
         public void CheckAndFireGun()
         {
-            if (PlayerInput.Instance.RangedAttack.Held && m_Animator.GetBool(m_HashHoldingGunPara))
+            if (PlayerInput.Instance.RangedAttack.Down && m_Animator.GetBool(m_HashHoldingGunPara))
             {
-                if (m_ShootingCoroutine == null)
+                if (Time.time >= m_NextShotTime)
                 {
-                    m_ShootingCoroutine = StartCoroutine(Shoot());
+                    m_NextShotTime = Time.time + m_ShotSpawnGap;
+                    
+                    m_MoveVector.x = 0.0f;
                     this.animationController.PlayRangedAttack();
+
+                    this.PlayInitialRangedEffect();
+                    StartCoroutine(SpawnBullet());
                 }
             }
+        }
 
-            if ((PlayerInput.Instance.RangedAttack.Up || !m_Animator.GetBool(m_HashHoldingGunPara)) && m_ShootingCoroutine != null)
-            {
-                StopCoroutine(m_ShootingCoroutine);
-                m_ShootingCoroutine = null;
-            }
+        private void PlayInitialRangedEffect()
+        {
+            if (!this.rangedInitialEffect.gameObject.activeSelf)
+                this.rangedInitialEffect.gameObject.SetActive(true);
+
+            float x = this.animationController.IsFacingLeft ? -1.0f : 1.0f;
+
+            Transform effectTransform = this.rangedInitialEffect.transform; 
+            Vector3 position = effectTransform.localPosition;
+            position.x = x;
+
+            effectTransform.localPosition = position;
+            this.rangedInitialEffect.Play();
         }
 
         public void ForceNotHoldingGun()

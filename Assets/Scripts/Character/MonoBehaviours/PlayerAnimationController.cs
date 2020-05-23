@@ -72,46 +72,36 @@ namespace ProjectRaoni
                 {
                     if (this.currentAnimationName != RUN)
                     {
-                        this.currentAnimationName = RUN;
                         this.PlayAnimation(RUN);
                     }
                 }
                 else if (this.currentAnimationName != WALK)
                 {
-                    this.currentAnimationName = WALK;
                     this.PlayAnimation(WALK);
                 }
             }
             else if (this.currentAnimationName != IDLE)
             {
                 float fadeTime = (this.currentAnimationName == ATTACK1) ? 0.1f : -1.0f;
-                
-                this.currentAnimationName = IDLE;
                 this.PlayAnimation(IDLE, -1, fadeTime);
             }
         }
 
         public void PlayMeleeAttack()
         {
-            this.currentAnimationName = ATTACK1;
             this.PlayAnimation(ATTACK1, 1, 0.05f);
-
             StartCoroutine(LockWaitAndUnlockAnimation());
         }
 
         public void PlayRangedAttack()
         {
-            this.currentAnimationName = ATTACK2;
             this.PlayAnimation(ATTACK2, 1);
-            
             StartCoroutine(LockWaitAndUnlockAnimation());
         }
 
         public void PlayHit()
         {
-            this.currentAnimationName = HIT;
             this.PlayAnimation(HIT, 1);
-
             StartCoroutine(LockWaitAndUnlockAnimation(false));
         }
         
@@ -119,9 +109,7 @@ namespace ProjectRaoni
         {
             base.Stop();
             this.isLocked = false;
-            this.currentAnimationName = DEATH;
             this.PlayAnimation(DEATH, 1);
-
             StartCoroutine(LockWaitAndUnlockAnimation(false));
         }
 
@@ -161,6 +149,8 @@ namespace ProjectRaoni
         {
             if (!this.isLocked)
             {
+                this.currentAnimationName = animationName;
+                
                 base.Play(animationName, playTimes, fadeTime);
                 StartCoroutine(this.UpdateMaterial(fadeTime));
             }

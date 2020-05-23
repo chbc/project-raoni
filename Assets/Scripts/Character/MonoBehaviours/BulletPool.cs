@@ -51,7 +51,7 @@ namespace Gamekit2D
             spriteRenderer = instance.GetComponent<SpriteRenderer> ();
             bullet = instance.GetComponent<Bullet>();
             bullet.bulletPoolObject = this;
-            bullet.mainCamera = Object.FindObjectOfType<Camera> ();
+            bullet.mainCamera = PlayerCamera.Instance.GetComponent<Camera>();
         }
 
         public override void WakeUp(Vector2 position)

@@ -51,6 +51,7 @@ namespace Gamekit2D
         SerializedProperty m_VerticalCameraOffsetDelayProp;
 
         SerializedProperty m_SpriteOriginallyFacesLeftProp;
+        SerializedProperty m_rangedInitialEffect;
 
         bool m_ReferencesFoldout;
         bool m_MovementSettingsFoldout;
@@ -107,6 +108,7 @@ namespace Gamekit2D
         readonly GUIContent m_VerticalCameraOffsetDelayContent = new GUIContent("Vertical Camera Offset Delay");
 
         readonly GUIContent m_SpriteOriginallyFacesLeftContent = new GUIContent("Sprite Originally Faces Left");
+        readonly GUIContent m_rangedInitialEffectContent = new GUIContent("Ranged Attack Initial Effect");
 
         readonly GUIContent m_ReferencesContent = new GUIContent("References");
         readonly GUIContent m_MovementSettingsContent = new GUIContent("Movement Settings");
@@ -165,6 +167,7 @@ namespace Gamekit2D
             m_VerticalCameraOffsetDelayProp = serializedObject.FindProperty("verticalCameraOffsetDelay");
 
             m_SpriteOriginallyFacesLeftProp = serializedObject.FindProperty ("spriteOriginallyFacesLeft");
+            m_rangedInitialEffect = serializedObject.FindProperty("rangedInitialEffect");
         }
 
         public override void OnInspectorGUI ()
@@ -263,6 +266,7 @@ namespace Gamekit2D
                 EditorGUILayout.PropertyField(m_BulletSpeedProp, m_BulletSpeedContent);
                 EditorGUILayout.PropertyField(m_HoldingGunTimeoutDurationProp, m_HoldingGunTimeoutDurationContent);
                 EditorGUILayout.PropertyField(m_RightBulletSpawnPointAnimatedProp, m_RightBulletSpawnPointAnimatedContent);
+                EditorGUILayout.PropertyField(m_rangedInitialEffect, m_rangedInitialEffectContent);
             }
 
             EditorGUI.indentLevel--;
