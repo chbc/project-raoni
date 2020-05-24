@@ -296,8 +296,12 @@ MonoBehaviour:
     controllerButton: 3
     m_Enabled: 1
   RangedAttack:
-    key: 111
+    key: 108
     controllerButton: 10
+    m_Enabled: 1
+  SecondAttack:
+    key: 106
+    controllerButton: 4
     m_Enabled: 1
   Jump:
     key: 32
@@ -1544,6 +1548,7 @@ MonoBehaviour:
   RUN: Run_
   ATTACK1: Atk_1
   ATTACK2: Arco_atk_1_TiroBasico
+  ATTACK3: Punho_atk_3_chutao
   HIT: Hit_
   DEATH: Hit_
   overrideMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}

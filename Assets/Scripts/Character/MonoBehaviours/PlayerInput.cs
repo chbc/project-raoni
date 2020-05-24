@@ -11,13 +11,13 @@ namespace Gamekit2D
 
         protected static PlayerInput s_Instance;
     
-    
         public bool HaveControl { get { return m_HaveControl; } }
 
         public InputButton Pause = new InputButton(KeyCode.Escape, XboxControllerButtons.Menu);
-        public InputButton Interact = new InputButton(KeyCode.E, XboxControllerButtons.Y);
+        public InputButton Interact = new InputButton(KeyCode.E, XboxControllerButtons.LeftBumper);
         public InputButton MeleeAttack = new InputButton(KeyCode.K, XboxControllerButtons.X);
-        public InputButton RangedAttack = new InputButton(KeyCode.O, XboxControllerButtons.B);
+        public InputButton RangedAttack = new InputButton(KeyCode.L, XboxControllerButtons.B);
+        public InputButton SecondAttack = new InputButton(KeyCode.J, XboxControllerButtons.Y);
         public InputButton Jump = new InputButton(KeyCode.Space, XboxControllerButtons.A);
         public InputButton Run = new InputButton(KeyCode.LeftShift, XboxControllerButtons.RightBumper);
         public InputAxis Horizontal = new InputAxis(KeyCode.D, KeyCode.A, XboxControllerAxes.LeftstickHorizontal);
@@ -60,6 +60,7 @@ namespace Gamekit2D
             Interact.Get(fixedUpdateHappened, inputType);
             MeleeAttack.Get(fixedUpdateHappened, inputType);
             RangedAttack.Get(fixedUpdateHappened, inputType);
+            SecondAttack.Get(fixedUpdateHappened, inputType);
             Jump.Get(fixedUpdateHappened, inputType);
             Run.Get(fixedUpdateHappened, inputType);
             Horizontal.Get(inputType);
@@ -79,6 +80,7 @@ namespace Gamekit2D
             GainControl(Interact);
             GainControl(MeleeAttack);
             GainControl(RangedAttack);
+            GainControl(SecondAttack);
             GainControl(Jump);
             GainControl(Run);
             GainControl(Horizontal);
@@ -93,6 +95,7 @@ namespace Gamekit2D
             ReleaseControl(Interact, resetValues);
             ReleaseControl(MeleeAttack, resetValues);
             ReleaseControl(RangedAttack, resetValues);
+            ReleaseControl(SecondAttack, resetValues);
             ReleaseControl(Jump, resetValues);
             ReleaseControl(Run, resetValues);
             ReleaseControl(Horizontal, resetValues);

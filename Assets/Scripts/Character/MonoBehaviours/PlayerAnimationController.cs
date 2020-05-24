@@ -11,12 +11,14 @@ namespace ProjectRaoni
         [SerializeField] private string RUN     = "run";
         [SerializeField] private string ATTACK1 = "atk1";
         [SerializeField] private string ATTACK2 = "atk2";
+        [SerializeField] private string ATTACK3 = "Punho_atk_3_chutao";
         [SerializeField] private string HIT     = "hit";
         [SerializeField] private string DEATH   = "dead";
 
         [SerializeField] private Material overrideMaterial = null;
         [SerializeField] private float runSpeedTreshold = 4.0f;
 
+        public bool IsLocked => isLocked;
         private bool isLocked;
         
         public bool IsFacingLeft { get; private set; }
@@ -90,6 +92,12 @@ namespace ProjectRaoni
         public void PlayMeleeAttack()
         {
             this.PlayAnimation(ATTACK1, 1, 0.05f);
+            StartCoroutine(LockWaitAndUnlockAnimation());
+        }
+
+        public void PlaySecondAttack()
+        {
+            this.PlayAnimation(ATTACK3, 1, 0.05f);
             StartCoroutine(LockWaitAndUnlockAnimation());
         }
 

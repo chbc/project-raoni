@@ -278,6 +278,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeBar: {fileID: 5451007638584429055}
+  manaBar: {fileID: 330237949582783571}
+  TOTAL_MANA: 4
+  RECHARGE_SPEED: 0.1
 --- !u!1 &4949858414362746257
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,10 +418,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: cc945f389c979eb429d593b317f12569, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 1
+  m_Type: 3
+  m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

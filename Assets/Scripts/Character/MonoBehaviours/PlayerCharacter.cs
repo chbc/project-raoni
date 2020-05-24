@@ -77,12 +77,6 @@ namespace Gamekit2D
         protected Coroutine m_FlickerCoroutine;
         protected Transform m_CurrentBulletSpawnPoint;
         protected float m_ShotSpawnGap;
-        protected WaitForSeconds m_ShotSpawnWait;
-        protected Coroutine m_ShootingCoroutine;
-        protected float m_NextShotTime;
-        protected bool m_IsFiring;
-        protected float m_ShotTimer;
-        protected float m_HoldingGunTimeRemaining;
         protected TileBase m_CurrentSurface;
         protected float m_CamFollowHorizontalSpeed;
         protected float m_CamFollowVerticalSpeed;
@@ -142,8 +136,6 @@ namespace Gamekit2D
             meleeDamager.DisableDamage();
 
             m_ShotSpawnGap = 1f / shotsPerSecond;
-            m_NextShotTime = Time.time;
-            m_ShotSpawnWait = new WaitForSeconds(m_ShotSpawnGap);
 
             if (!Mathf.Approximately(maxHorizontalDeltaDampTime, 0f))
             {
@@ -606,43 +598,24 @@ namespace Gamekit2D
             damageable.DisableInvulnerability();
         }
 
-        public bool CheckForHoldingGun()
+        public void CheckForHoldingGun()
         {
-            bool holdingGun = false;
-
-            if (PlayerInput.Instance.RangedAttack.Held)
-            {
-                holdingGun = true;
-                m_Animator.SetBool(m_HashHoldingGunPara, true);
-                m_HoldingGunTimeRemaining = holdingGunTimeoutDuration;
-            }
-            else
-            {
-                m_HoldingGunTimeRemaining -= Time.deltaTime;
-
-                if (m_HoldingGunTimeRemaining <= 0f)
-                {
-                    m_Animator.SetBool(m_HashHoldingGunPara, false);
-                }
-            }
-
-            return holdingGun;
+            if (!this.animationController.IsLocked)
+                m_Animator.SetBool(m_HashHoldingGunPara, false);
         }
-
+        
         public void CheckAndFireGun()
         {
-            if (PlayerInput.Instance.RangedAttack.Down && m_Animator.GetBool(m_HashHoldingGunPara))
+            if (PlayerInput.Instance.RangedAttack.Down && PlayerHUD.Instance.HasMana && !this.animationController.IsLocked)
             {
-                if (Time.time >= m_NextShotTime)
-                {
-                    m_NextShotTime = Time.time + m_ShotSpawnGap;
-                    
-                    m_MoveVector.x = 0.0f;
-                    this.animationController.PlayRangedAttack();
+                PlayerHUD.Instance.DecrementMana();
+                
+                m_MoveVector.x = 0;
+                m_Animator.SetBool(m_HashHoldingGunPara, true);
+                this.animationController.PlayRangedAttack();
 
-                    this.PlayInitialRangedEffect();
-                    StartCoroutine(SpawnBullet());
-                }
+                this.PlayInitialRangedEffect();
+                StartCoroutine(SpawnBullet());
             }
         }
 
@@ -762,11 +735,22 @@ namespace Gamekit2D
         {
             return PlayerInput.Instance.MeleeAttack.Down;
         }
+        
+        public bool CheckForSecondAttackInput()
+        {
+            return PlayerInput.Instance.SecondAttack.Down;
+        }
 
         public void MeleeAttack()
         {
             m_Animator.SetTrigger(m_HashMeleeAttackPara);
             this.animationController.PlayMeleeAttack();
+        }
+
+        public void SecondAttack()
+        {
+            m_Animator.SetTrigger(m_HashMeleeAttackPara);
+            this.animationController.PlaySecondAttack();
         }
 
         public void EnableMeleeAttack()
