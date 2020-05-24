@@ -70,6 +70,12 @@ namespace Gamekit2D
             this.offset = new Vector2(Mathf.Abs(this.offset.x) * direction, this.offset.y);
         }
 
+        public void SetXOffset(float xOffset)
+        {
+            float direction = Mathf.Sign(this.offset.x);
+            this.offset.x = xOffset * direction;
+        }
+
         void FixedUpdate()
         {
             if (!m_CanDamage)

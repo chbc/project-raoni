@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BTAI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using ProjectRaoni;
@@ -747,10 +748,32 @@ namespace Gamekit2D
             this.animationController.PlayMeleeAttack();
         }
 
+        public bool IsAttackOngoing()
+        {
+            return this.animationController.IsLocked;
+        }
+
         public void SecondAttack()
         {
-            m_Animator.SetTrigger(m_HashMeleeAttackPara);
+            if (!this.animationController.IsLocked)
+            {
+                StartCoroutine(WaitAndAnimateSecondAttack());
+            }
+        }
+
+        private IEnumerator WaitAndAnimateSecondAttack()
+        {
             this.animationController.PlaySecondAttack();
+            
+            yield return new WaitForSeconds(0.25f);
+            
+            this.meleeDamager.SetXOffset(3.0f);
+            m_Animator.SetTrigger(m_HashMeleeAttackPara);
+        }
+
+        public void ResetDamagerOffset()
+        {
+            this.meleeDamager.SetXOffset(1.5f);
         }
 
         public void EnableMeleeAttack()

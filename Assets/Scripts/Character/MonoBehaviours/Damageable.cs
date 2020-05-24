@@ -73,8 +73,6 @@ namespace Gamekit2D
 
         public void EnableInvulnerability(bool ignoreTimer = false)
         {
-            Debug.Log("### ENABLE_INVULNERABILITY: " + gameObject.name);
-            
             m_Invulnerable = true;
             //technically don't ignore timer, just set it to an insanly big number. Allow to avoid to add more test & special case.
             m_InulnerabilityTimer = ignoreTimer ? float.MaxValue : invulnerabilityDuration;
@@ -94,8 +92,6 @@ namespace Gamekit2D
         {
             if ((m_Invulnerable && !ignoreInvincible) || m_CurrentHealth <= 0)
             {
-                Debug.LogFormat("### TAKE DAMAGE | m_Invulnerable: {0} | ignoreInvencible: {1} | m_CurrentHealth: {2}", 
-                    m_Invulnerable, ignoreInvincible, m_CurrentHealth);
                 return;
             }
 
