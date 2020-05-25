@@ -20,7 +20,7 @@ namespace Gamekit2D
             m_MonoBehaviour.CheckForGrounded();
             m_MonoBehaviour.CheckForPushing();
             m_MonoBehaviour.MovePushable ();
-            m_MonoBehaviour.CheckForJumpInput ();
+            m_MonoBehaviour.CheckForDashInput ();
         }
 
         public override void OnSLStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

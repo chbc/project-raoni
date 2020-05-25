@@ -12,6 +12,7 @@ namespace ProjectRaoni
         [SerializeField] private string ATTACK1 = "atk1";
         [SerializeField] private string ATTACK2 = "atk2";
         [SerializeField] private string ATTACK3 = "Punho_atk_3_chutao";
+        [SerializeField] private string DASH    = "Dash_";
         [SerializeField] private string HIT     = "hit";
         [SerializeField] private string DEATH   = "dead";
 
@@ -107,6 +108,12 @@ namespace ProjectRaoni
             StartCoroutine(LockWaitAndUnlockAnimation());
         }
 
+        public void PlayDash()
+        {
+            this.PlayAnimation(DASH, 1, 0.1f);
+            StartCoroutine(LockWaitAndUnlockAnimation(0.5f));
+        }
+
         public void PlayHit()
         {
             this.PlayAnimation(HIT, 1);
@@ -150,7 +157,15 @@ namespace ProjectRaoni
             this.isLocked = false;
             
             if (playIdleAfterUnlock)
-                this.PlayAnimation(IDLE);
+                this.PlayAnimation(IDLE, 1, 0.1f);
+        }
+
+        private IEnumerator LockWaitAndUnlockAnimation(float time)
+        {
+            this.isLocked = true;
+            yield return new WaitForSeconds(time);
+            this.isLocked = false;
+            this.PlayAnimation(IDLE);
         }
 
         private void PlayAnimation(string animationName, int playTimes = -1, float fadeTime = -1.0f)

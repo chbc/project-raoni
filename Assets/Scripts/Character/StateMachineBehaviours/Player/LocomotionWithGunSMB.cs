@@ -15,7 +15,7 @@ namespace Gamekit2D
             m_MonoBehaviour.CheckForPushing();
             m_MonoBehaviour.CheckForHoldingGun();
             m_MonoBehaviour.CheckAndFireGun();
-            if (m_MonoBehaviour.CheckForJumpInput())
+            if (m_MonoBehaviour.CheckForDashInput())
                 m_MonoBehaviour.SetVerticalMovement(m_MonoBehaviour.jumpSpeed);
             else if (m_MonoBehaviour.CheckForMeleeAttackInput())
                 m_MonoBehaviour.MeleeAttack();

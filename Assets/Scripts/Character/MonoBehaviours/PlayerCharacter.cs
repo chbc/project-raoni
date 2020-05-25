@@ -516,7 +516,7 @@ namespace Gamekit2D
 
         public void UpdateJump()
         {
-            if (!PlayerInput.Instance.Jump.Held && m_MoveVector.y > 0.0f)
+            if (!PlayerInput.Instance.Dash.Held && m_MoveVector.y > 0.0f)
             {
                 m_MoveVector.y -= jumpAbortSpeedReduction * Time.deltaTime;
             }
@@ -545,14 +545,33 @@ namespace Gamekit2D
             m_MoveVector.y -= gravity * Time.deltaTime;
         }
 
-        public bool CheckForJumpInput()
+        public bool CheckForDashInput()
         {
-            return PlayerInput.Instance.Jump.Down;
+            return (PlayerInput.Instance.Dash.Down && !this.animationController.IsLocked);
+        }
+
+        public void Dash()
+        {
+            const float DASH_MULTIPLIER = 2.0f;
+            float direction = this.animationController.IsFacingLeft ? -1.0f : 1.0f;
+            m_MoveVector.x = jumpSpeed * DASH_MULTIPLIER * direction;
+            m_MoveVector.y = jumpSpeed * DASH_MULTIPLIER * 0.35f;
+            this.animationController.PlayDash();
+
+            m_Capsule.enabled = false;
+
+            StartCoroutine(WaitAndEnableCollider());
+        }
+
+        private IEnumerator WaitAndEnableCollider()
+        {
+            yield return new WaitForSeconds(0.5f);
+            m_Capsule.enabled = true;
         }
 
         public bool CheckForFallInput()
         {
-            return PlayerInput.Instance.Vertical.Value < -float.Epsilon && PlayerInput.Instance.Jump.Down;
+            return PlayerInput.Instance.Vertical.Value < -float.Epsilon && PlayerInput.Instance.Dash.Down;
         }
 
         public bool MakePlatformFallthrough()

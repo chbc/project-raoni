@@ -73,7 +73,7 @@ namespace Gamekit2D
         private float cheatTime = 2.0f;
         void Update ()
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Return))
             {
                 this.cheatTime -= Time.deltaTime;
                 if (this.cheatTime < 0)

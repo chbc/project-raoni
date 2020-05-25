@@ -18,7 +18,7 @@ namespace Gamekit2D
         public InputButton MeleeAttack = new InputButton(KeyCode.K, XboxControllerButtons.X);
         public InputButton RangedAttack = new InputButton(KeyCode.L, XboxControllerButtons.B);
         public InputButton SecondAttack = new InputButton(KeyCode.J, XboxControllerButtons.Y);
-        public InputButton Jump = new InputButton(KeyCode.Space, XboxControllerButtons.A);
+        public InputButton Dash = new InputButton(KeyCode.Space, XboxControllerButtons.A);
         public InputButton Run = new InputButton(KeyCode.LeftShift, XboxControllerButtons.RightBumper);
         public InputAxis Horizontal = new InputAxis(KeyCode.D, KeyCode.A, XboxControllerAxes.LeftstickHorizontal);
         public InputAxis Vertical = new InputAxis(KeyCode.W, KeyCode.S, XboxControllerAxes.LeftstickVertical);
@@ -61,7 +61,7 @@ namespace Gamekit2D
             MeleeAttack.Get(fixedUpdateHappened, inputType);
             RangedAttack.Get(fixedUpdateHappened, inputType);
             SecondAttack.Get(fixedUpdateHappened, inputType);
-            Jump.Get(fixedUpdateHappened, inputType);
+            Dash.Get(fixedUpdateHappened, inputType);
             Run.Get(fixedUpdateHappened, inputType);
             Horizontal.Get(inputType);
             Vertical.Get(inputType);
@@ -81,7 +81,7 @@ namespace Gamekit2D
             GainControl(MeleeAttack);
             GainControl(RangedAttack);
             GainControl(SecondAttack);
-            GainControl(Jump);
+            GainControl(Dash);
             GainControl(Run);
             GainControl(Horizontal);
             GainControl(Vertical);
@@ -96,7 +96,7 @@ namespace Gamekit2D
             ReleaseControl(MeleeAttack, resetValues);
             ReleaseControl(RangedAttack, resetValues);
             ReleaseControl(SecondAttack, resetValues);
-            ReleaseControl(Jump, resetValues);
+            ReleaseControl(Dash, resetValues);
             ReleaseControl(Run, resetValues);
             ReleaseControl(Horizontal, resetValues);
             ReleaseControl(Vertical, resetValues);
