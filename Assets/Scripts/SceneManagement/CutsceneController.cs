@@ -12,6 +12,8 @@ namespace ProjectRaoni
 
         private IEnumerator Start()
         {
+            yield return null;
+            
             this.videoPlayer.Play();
 
             yield return null;
