@@ -40,6 +40,7 @@ namespace Gamekit2D
         SerializedProperty m_HurtAudioPlayerProp;
         SerializedProperty m_MeleeAttackAudioPlayerProp;
         SerializedProperty m_RangedAttackAudioPlayerProp;
+        SerializedProperty m_DashAudioPlayerProp;
 
         SerializedProperty m_CameraHorizontalFacingOffsetProp;
         SerializedProperty m_CameraHorizontalSpeedOffsetProp;
@@ -96,6 +97,7 @@ namespace Gamekit2D
         readonly GUIContent m_HurtAudioPlayerContent = new GUIContent("Hurt Audio Player");
         readonly GUIContent m_MeleeAttackAudioPlayerContent = new GUIContent("Melee Attack Audio Player");
         readonly GUIContent m_RangedAttackAudioPlayerContent = new GUIContent("Ranged Attack Audio Player");
+        readonly GUIContent m_DashAudioPlayerContent = new GUIContent("Dash Audio Player");
 
         readonly GUIContent m_CameraHorizontalFacingOffsetContent = new GUIContent("Camera Horizontal Facing Offset");
         readonly GUIContent m_CameraHorizontalSpeedOffsetContent = new GUIContent("Camera Horizontal Speed Offset");
@@ -153,6 +155,7 @@ namespace Gamekit2D
             m_HurtAudioPlayerProp = serializedObject.FindProperty("hurtAudioPlayer");
             m_MeleeAttackAudioPlayerProp = serializedObject.FindProperty("meleeAttackAudioPlayer");
             m_RangedAttackAudioPlayerProp = serializedObject.FindProperty("rangedAttackAudioPlayer");
+            m_DashAudioPlayerProp = serializedObject.FindProperty("dashAudioPlayer");
 
             m_CameraHorizontalFacingOffsetProp = serializedObject.FindProperty("cameraHorizontalFacingOffset");
             m_CameraHorizontalSpeedOffsetProp = serializedObject.FindProperty("cameraHorizontalSpeedOffset");
@@ -277,6 +280,7 @@ namespace Gamekit2D
                 EditorGUILayout.PropertyField(m_HurtAudioPlayerProp, m_HurtAudioPlayerContent);
                 EditorGUILayout.PropertyField(m_MeleeAttackAudioPlayerProp, m_MeleeAttackAudioPlayerContent);
                 EditorGUILayout.PropertyField(m_RangedAttackAudioPlayerProp, m_RangedAttackAudioPlayerContent);
+                EditorGUILayout.PropertyField(m_DashAudioPlayerProp, m_DashAudioPlayerContent);
             }
 
             EditorGUI.indentLevel--;

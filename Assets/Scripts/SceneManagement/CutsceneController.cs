@@ -12,6 +12,8 @@ namespace ProjectRaoni
 
         private IEnumerator Start()
         {
+            BackgroundMusicPlayer.Instance.Stop();
+            
             yield return null;
             
             this.videoPlayer.Play();

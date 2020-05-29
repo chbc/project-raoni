@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\Audio\BackgroundMusicPlayer.cs" />
      <Compile Include="Assets\Scripts\Audio\MixerSliderLink.cs" />
      <Compile Include="Assets\Scripts\Audio\RandomAudioPlayer.cs" />
+     <Compile Include="Assets\Scripts\Audio\SceneAudioController.cs" />
      <Compile Include="Assets\Scripts\Character\MonoBehaviours\Bullet.cs" />
      <Compile Include="Assets\Scripts\Character\MonoBehaviours\BulletPool.cs" />
      <Compile Include="Assets\Scripts\Character\MonoBehaviours\CharacterController2D.cs" />

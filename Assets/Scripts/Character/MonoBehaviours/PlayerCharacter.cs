@@ -49,6 +49,7 @@ namespace Gamekit2D
         public RandomAudioPlayer hurtAudioPlayer;
         public RandomAudioPlayer meleeAttackAudioPlayer;
         public RandomAudioPlayer rangedAttackAudioPlayer;
+        public RandomAudioPlayer dashAudioPlayer;
 
         public float shotsPerSecond = 1f;
         public float bulletSpeed = 5f;
@@ -557,6 +558,7 @@ namespace Gamekit2D
             this.animationController.PlayDash();
 
             m_Capsule.enabled = false;
+            this.dashAudioPlayer.PlayRandomSound();
 
             StartCoroutine(WaitAndEnableCollider());
         }

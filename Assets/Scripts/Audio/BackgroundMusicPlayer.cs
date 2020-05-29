@@ -46,6 +46,8 @@ namespace Gamekit2D
         //once that stack is empty, it revert to the musicAudioClip
         protected Stack<AudioClip> m_MusicStack = new Stack<AudioClip>();
 
+        public static bool HasInstance => s_Instance != null;
+        
         void Awake ()
         {
             // If there's already a player...
