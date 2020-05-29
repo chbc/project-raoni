@@ -36,8 +36,7 @@ namespace Gamekit2D
         SerializedProperty m_HoldingGunTimeoutDurationProp;
         SerializedProperty m_RightBulletSpawnPointAnimatedProp;
 
-        SerializedProperty m_FootstepAudioPlayerProp;
-        SerializedProperty m_LandingAudioPlayerProp;
+        SerializedProperty m_HitAudioPlayerProp;
         SerializedProperty m_HurtAudioPlayerProp;
         SerializedProperty m_MeleeAttackAudioPlayerProp;
         SerializedProperty m_RangedAttackAudioPlayerProp;
@@ -93,8 +92,7 @@ namespace Gamekit2D
         readonly GUIContent m_HoldingGunTimeoutDurationContent = new GUIContent("Holding Gun Timeout Duration");
         readonly GUIContent m_RightBulletSpawnPointAnimatedContent = new GUIContent("Right Bullet Spawn Point Animated");
 
-        readonly GUIContent m_FootstepPlayerContent = new GUIContent("Footstep Audio Player");
-        readonly GUIContent m_LandingAudioPlayerContent = new GUIContent("Landing Audio Player");
+        readonly GUIContent m_HitAudioPlayerContent = new GUIContent("Hit Audio Player");
         readonly GUIContent m_HurtAudioPlayerContent = new GUIContent("Hurt Audio Player");
         readonly GUIContent m_MeleeAttackAudioPlayerContent = new GUIContent("Melee Attack Audio Player");
         readonly GUIContent m_RangedAttackAudioPlayerContent = new GUIContent("Ranged Attack Audio Player");
@@ -151,8 +149,7 @@ namespace Gamekit2D
             m_HoldingGunTimeoutDurationProp = serializedObject.FindProperty("holdingGunTimeoutDuration");
             m_RightBulletSpawnPointAnimatedProp = serializedObject.FindProperty ("rightBulletSpawnPointAnimated");
 
-            m_FootstepAudioPlayerProp = serializedObject.FindProperty("footstepAudioPlayer");
-            m_LandingAudioPlayerProp = serializedObject.FindProperty("landingAudioPlayer");
+            m_HitAudioPlayerProp = serializedObject.FindProperty("hitAudioPlayer");
             m_HurtAudioPlayerProp = serializedObject.FindProperty("hurtAudioPlayer");
             m_MeleeAttackAudioPlayerProp = serializedObject.FindProperty("meleeAttackAudioPlayer");
             m_RangedAttackAudioPlayerProp = serializedObject.FindProperty("rangedAttackAudioPlayer");
@@ -276,8 +273,7 @@ namespace Gamekit2D
 
             if (m_AudioSettingsFoldout)
             {
-                EditorGUILayout.PropertyField(m_FootstepAudioPlayerProp, m_FootstepPlayerContent);
-                EditorGUILayout.PropertyField(m_LandingAudioPlayerProp, m_LandingAudioPlayerContent);
+                EditorGUILayout.PropertyField(m_HitAudioPlayerProp, m_HitAudioPlayerContent);
                 EditorGUILayout.PropertyField(m_HurtAudioPlayerProp, m_HurtAudioPlayerContent);
                 EditorGUILayout.PropertyField(m_MeleeAttackAudioPlayerProp, m_MeleeAttackAudioPlayerContent);
                 EditorGUILayout.PropertyField(m_RangedAttackAudioPlayerProp, m_RangedAttackAudioPlayerContent);

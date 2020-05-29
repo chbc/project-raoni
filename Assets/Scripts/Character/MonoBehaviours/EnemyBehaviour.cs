@@ -54,7 +54,7 @@ namespace Gamekit2D
         public RandomAudioPlayer shootingAudio;
         public RandomAudioPlayer meleeAttackAudio;
         public RandomAudioPlayer dieAudio;
-        public RandomAudioPlayer footStepAudio;
+        public RandomAudioPlayer hitAudio;
 
         [Header("Misc")]
         [Tooltip("Time in seconds during which the enemy flicker after being hit")]
@@ -463,6 +463,7 @@ namespace Gamekit2D
             EnemiesController.Instance.DecrementEnemies();
             
             this.PlayHitEffect();
+            this.hitAudio.PlayRandomSound();
         }
 
         public void Hit(Damager damager, Damageable damageable)
@@ -490,6 +491,7 @@ namespace Gamekit2D
             CameraShaker.Shake(0.15f, 0.3f);
             
             this.PlayHitEffect();
+            this.hitAudio.PlayRandomSound();
         }
 
         /* ###
@@ -528,7 +530,7 @@ namespace Gamekit2D
 
         public void PlayFootStep()
         {
-            footStepAudio.PlayRandomSound();
+            // footStepAudio.PlayRandomSound();
         }
         
         private void SetOrientation(bool left)

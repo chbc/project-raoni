@@ -45,8 +45,7 @@ namespace Gamekit2D
         public float meleeAttackDashSpeed = 5f;
         public bool dashWhileAirborne = false;
 
-        public RandomAudioPlayer footstepAudioPlayer;
-        public RandomAudioPlayer landingAudioPlayer;
+        public RandomAudioPlayer hitAudioPlayer;
         public RandomAudioPlayer hurtAudioPlayer;
         public RandomAudioPlayer meleeAttackAudioPlayer;
         public RandomAudioPlayer rangedAttackAudioPlayer;
@@ -425,11 +424,6 @@ namespace Gamekit2D
             if (grounded)
             {
                 FindCurrentSurface();
-
-                if (!wasGrounded && m_MoveVector.y < -1.0f)
-                {//only play the landing sound if falling "fast" enough (avoid small bump playing the landing sound)
-                    landingAudioPlayer.PlayRandomSound(m_CurrentSurface);
-                }
             }
             else
                 m_CurrentSurface = null;
@@ -694,6 +688,7 @@ namespace Gamekit2D
             UpdateFacing(damageable.GetDamageDirection().x > 0f);
             damageable.EnableInvulnerability();
 
+            this.hitAudioPlayer.PlayRandomSound();
             m_Animator.SetTrigger(m_HashHurtPara);
             this.animationController.PlayHit();
 
@@ -821,7 +816,6 @@ namespace Gamekit2D
 
         public void PlayFootstep()
         {
-            footstepAudioPlayer.PlayRandomSound(m_CurrentSurface);
             var footstepPosition = transform.position;
             footstepPosition.z -= 1;
             VFXController.Instance.Trigger("DustPuff", footstepPosition, 0, false, null, m_CurrentSurface);
