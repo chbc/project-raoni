@@ -10,13 +10,14 @@ namespace Gamekit2D
         {
             m_MonoBehaviour.SetMoveVector(m_MonoBehaviour.GetHurtDirection() * m_MonoBehaviour.hurtJumpSpeed);
             m_MonoBehaviour.StartFlickering ();
+
+            m_MonoBehaviour.StartCoroutine(WaitAndCheckForGrounded());
         }
 
-        public override void OnSLStateNoTransitionUpdate (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        private IEnumerator WaitAndCheckForGrounded()
         {
-            if(m_MonoBehaviour.IsFalling ())
-                m_MonoBehaviour.CheckForGrounded();
-            m_MonoBehaviour.AirborneVerticalMovement();
+            yield return new WaitForSeconds(0.5f);
+            m_MonoBehaviour.CheckForGrounded();
         }
     }
 }

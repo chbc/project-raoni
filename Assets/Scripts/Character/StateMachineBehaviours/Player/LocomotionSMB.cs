@@ -13,7 +13,7 @@ namespace Gamekit2D
         {
             m_MonoBehaviour.UpdateFacing();
             m_MonoBehaviour.GroundedHorizontalMovement(true);
-            m_MonoBehaviour.GroundedVerticalMovement();
+            // m_MonoBehaviour.GroundedVerticalMovement();
             m_MonoBehaviour.CheckForCrouching();
             m_MonoBehaviour.CheckForGrounded();
             m_MonoBehaviour.CheckForPushing();

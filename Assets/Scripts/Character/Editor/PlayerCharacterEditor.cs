@@ -13,7 +13,6 @@ namespace Gamekit2D
         SerializedProperty m_BulletPoolProp;
         SerializedProperty m_CameraFollowTargetProp;
 
-        SerializedProperty m_MaxSpeedProp;
         SerializedProperty m_GroundAccelerationProp;
         SerializedProperty m_GroundDecelerationProp;
         SerializedProperty m_PushingSpeedProportionProp;
@@ -129,7 +128,6 @@ namespace Gamekit2D
             m_BulletPoolProp = serializedObject.FindProperty("bulletPool");
             m_CameraFollowTargetProp = serializedObject.FindProperty ("cameraFollowTarget");
 
-            m_MaxSpeedProp = serializedObject.FindProperty("maxSpeed");
             m_GroundAccelerationProp = serializedObject.FindProperty("groundAcceleration");
             m_GroundDecelerationProp = serializedObject.FindProperty("groundDeceleration");
             m_PushingSpeedProportionProp = serializedObject.FindProperty ("pushingSpeedProportion");
@@ -199,7 +197,6 @@ namespace Gamekit2D
 
             if (m_MovementSettingsFoldout)
             {
-                EditorGUILayout.PropertyField(m_MaxSpeedProp, m_MaxSpeedContent);
                 EditorGUILayout.PropertyField(m_GroundAccelerationProp, m_GroundAccelerationContent);
                 EditorGUILayout.PropertyField(m_GroundDecelerationProp, m_GroundDecelerationContent);
                 EditorGUILayout.PropertyField (m_PushingSpeedProportionProp, m_PushingSpeedProportionContent);

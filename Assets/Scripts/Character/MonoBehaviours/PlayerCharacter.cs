@@ -27,7 +27,6 @@ namespace Gamekit2D
         public BulletPool bulletPool;
         public Transform cameraFollowTarget;
 
-        public float maxSpeed = 10f;
         public float groundAcceleration = 100f;
         public float groundDeceleration = 100f;
         public float maxRunSpeed = 8.0f;
@@ -140,7 +139,7 @@ namespace Gamekit2D
 
             if (!Mathf.Approximately(maxHorizontalDeltaDampTime, 0f))
             {
-                float maxHorizontalDelta = maxSpeed * cameraHorizontalSpeedOffset + cameraHorizontalFacingOffset;
+                float maxHorizontalDelta = maxRunSpeed * cameraHorizontalSpeedOffset + cameraHorizontalFacingOffset;
                 m_CamFollowHorizontalSpeed = maxHorizontalDelta / maxHorizontalDeltaDampTime;
             }
 
@@ -332,7 +331,7 @@ namespace Gamekit2D
 
         public void SetVerticalMovement(float newVerticalMovement)
         {
-            m_MoveVector.y = newVerticalMovement;
+            // m_MoveVector.y = newVerticalMovement;
         }
 
         public void IncrementMovement(Vector2 additionalMovement)
@@ -352,12 +351,14 @@ namespace Gamekit2D
 
         public void GroundedVerticalMovement()
         {
+            /*
             m_MoveVector.y -= gravity * Time.deltaTime;
 
             if (m_MoveVector.y < -gravity * Time.deltaTime * k_GroundedStickingVelocityMultiplier)
             {
                 m_MoveVector.y = -gravity * Time.deltaTime * k_GroundedStickingVelocityMultiplier;
             }
+            */
         }
 
         public Vector2 GetMoveVector()
@@ -401,7 +402,7 @@ namespace Gamekit2D
         public void GroundedHorizontalMovement(bool useInput, float speedScale = 1f)
         {
             PlayerInput playerInput = PlayerInput.Instance;
-            float maxSpeedResult = playerInput.Run.Held ? maxRunSpeed : maxSpeed;
+            float maxSpeedResult = maxRunSpeed;
             
             float desiredSpeed = useInput ? playerInput.Horizontal.Value * maxSpeedResult * speedScale : 0f;
             float acceleration = useInput && playerInput.Horizontal.ReceivingInput ? groundAcceleration : groundDeceleration;
@@ -516,15 +517,17 @@ namespace Gamekit2D
 
         public void UpdateJump()
         {
+            /*
             if (!PlayerInput.Instance.Dash.Held && m_MoveVector.y > 0.0f)
             {
                 m_MoveVector.y -= jumpAbortSpeedReduction * Time.deltaTime;
             }
+            */
         }
 
         public void AirborneHorizontalMovement()
         {
-            float desiredSpeed = PlayerInput.Instance.Horizontal.Value * maxSpeed;
+            float desiredSpeed = PlayerInput.Instance.Horizontal.Value * maxRunSpeed;
 
             float acceleration;
 
@@ -538,11 +541,13 @@ namespace Gamekit2D
 
         public void AirborneVerticalMovement()
         {
+            /*
             if (Mathf.Approximately(m_MoveVector.y, 0f) || m_CharacterController2D.IsCeilinged && m_MoveVector.y > 0f)
             {
                 m_MoveVector.y = 0f;
             }
             m_MoveVector.y -= gravity * Time.deltaTime;
+            */
         }
 
         public bool CheckForDashInput()
@@ -555,7 +560,6 @@ namespace Gamekit2D
             const float DASH_MULTIPLIER = 2.0f;
             float direction = this.animationController.IsFacingLeft ? -1.0f : 1.0f;
             m_MoveVector.x = jumpSpeed * DASH_MULTIPLIER * direction;
-            m_MoveVector.y = jumpSpeed * DASH_MULTIPLIER * 0.35f;
             this.animationController.PlayDash();
 
             m_Capsule.enabled = false;
@@ -678,7 +682,7 @@ namespace Gamekit2D
 
             float y = Mathf.Abs(damageDirection.x) * m_TanHurtJumpAngle;
 
-            return new Vector2(damageDirection.x, y).normalized;
+            return new Vector2(damageDirection.x, 0).normalized;
         }
 
         public void OnHurt(Damager damager, Damageable damageable)
