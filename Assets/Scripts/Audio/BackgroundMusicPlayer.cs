@@ -26,18 +26,22 @@ namespace Gamekit2D
         [Header("Music Settings")]
         public AudioClip musicAudioClip;
         public AudioMixerGroup musicOutput;
-        public bool musicPlayOnAwake = true;
+        // public bool musicPlayOnAwake = true;
         [Range(0f, 1f)]
         public float musicVolume = 1f;
         [Header("Ambient Settings")]
         public AudioClip ambientAudioClip;
         public AudioMixerGroup ambientOutput;
         public bool ambientPlayOnAwake = true;
+
+        public AudioClip zone1Intro = null;
+        
         [Range(0f, 1f)]
         public float ambientVolume = 1f;
 
         protected AudioSource m_MusicAudioSource;
         protected AudioSource m_AmbientAudioSource;
+        protected AudioSource m_zone1IntroAudioSource;
 
         protected bool m_TransferMusicTime, m_TransferAmbientTime;
         protected BackgroundMusicPlayer m_OldInstanceToDestroy = null;
@@ -79,17 +83,24 @@ namespace Gamekit2D
             m_MusicAudioSource.loop = true;
             m_MusicAudioSource.volume = musicVolume;
 
+            /*
             if (musicPlayOnAwake)
             {
                 m_MusicAudioSource.time = 0f;
                 m_MusicAudioSource.Play();
             }
+            */
 
             m_AmbientAudioSource = gameObject.AddComponent<AudioSource>();
             m_AmbientAudioSource.clip = ambientAudioClip;
             m_AmbientAudioSource.outputAudioMixerGroup = ambientOutput;
             m_AmbientAudioSource.loop = true;
             m_AmbientAudioSource.volume = ambientVolume;
+            
+            m_zone1IntroAudioSource = gameObject.AddComponent<AudioSource>();
+            m_zone1IntroAudioSource.clip = zone1Intro;
+            m_zone1IntroAudioSource.outputAudioMixerGroup = ambientOutput;
+            m_zone1IntroAudioSource.volume = ambientVolume;
 
             if (ambientPlayOnAwake)
             {
@@ -155,6 +166,10 @@ namespace Gamekit2D
             m_AmbientAudioSource.clip = clip;
         }
 
+        public void PlayZone1Intro()
+        {
+            m_zone1IntroAudioSource.Play();
+        }
 
         public void Play ()
         {

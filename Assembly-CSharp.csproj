@@ -160,9 +160,11 @@
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextClip.cs" />
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextMixerBehaviour.cs" />
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextTrack.cs" />
+     <Compile Include="Assets\Scripts\UI\GameControlPopup.cs" />
      <Compile Include="Assets\Scripts\UI\HealthUI.cs" />
      <Compile Include="Assets\Scripts\UI\InputDisplayUI.cs" />
      <Compile Include="Assets\Scripts\UI\KeyUI.cs" />
+     <Compile Include="Assets\Scripts\UI\LoadSceneByPressingButton.cs" />
      <Compile Include="Assets\Scripts\UI\MenuActivityController.cs" />
      <Compile Include="Assets\Scripts\UI\OptionUI.cs" />
      <Compile Include="Assets\Scripts\UI\PlayerHUD.cs" />

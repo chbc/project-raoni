@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 516604db9dbf00141b71b702c4fd79c4, type: 3}
+  - {fileID: 8300000, guid: 338ed8d4fa3403d4883428931aa3f815, type: 3}
   overrides: []
   randomizePitch: 0
   pitchRange: 0.2
@@ -419,9 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: c5b0c76e1664a8b4ab228f31c8caddef, type: 3}
-  - {fileID: 8300000, guid: e298ed73017db8c4fa4255c45e5a9f0a, type: 3}
-  - {fileID: 8300000, guid: b843fce942ecaf5408ed50f4d6129f2a, type: 3}
+  - {fileID: 8300000, guid: 1962436d7ed8b8146af54e3f098cfc44, type: 3}
   overrides: []
   randomizePitch: 0
   pitchRange: 0.2

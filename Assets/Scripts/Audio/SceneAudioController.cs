@@ -1,5 +1,7 @@
-﻿using Gamekit2D;
+﻿using System.Collections;
+using Gamekit2D;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace ProjectRaoni
 {
@@ -7,11 +9,20 @@ namespace ProjectRaoni
     {
         [SerializeField] private AudioClip _stageMusic = null;
         
-        private void Start()
+        private IEnumerator Start()
         {
-            BackgroundMusicPlayer.Instance.PushClip(_stageMusic);
-        }
+            if (BackgroundMusicPlayer.HasInstance)
+            {
+                BackgroundMusicPlayer.Instance.PushClip(_stageMusic);
 
+                if (SceneManager.GetActiveScene().name == "Zone1")
+                {
+                    yield return new WaitForSeconds(1.0f);
+                    BackgroundMusicPlayer.Instance.PlayZone1Intro();
+                }
+            }
+        }
+        
         private void OnDestroy()
         {
             if (BackgroundMusicPlayer.HasInstance)
