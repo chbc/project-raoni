@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -196,13 +196,13 @@ MonoBehaviour:
     key: 111
     controllerButton: 2
     m_Enabled: 1
-  Jump:
+  SecondAttack:
+    key: 106
+    controllerButton: 4
+    m_Enabled: 1
+  Dash:
     key: 32
     controllerButton: 1
-    m_Enabled: 1
-  Run:
-    key: 304
-    controllerButton: 10
     m_Enabled: 1
   Horizontal:
     positive: 100
@@ -911,7 +911,7 @@ PrefabInstance:
     - target: {fileID: 114634906093864604, guid: b38e9ca90e4033c4bb4554a41a283698,
         type: 3}
       propertyPath: newSceneName
-      value: Zone1
+      value: SeasonDescription
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b38e9ca90e4033c4bb4554a41a283698, type: 3}

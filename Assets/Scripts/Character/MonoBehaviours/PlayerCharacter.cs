@@ -768,7 +768,7 @@ namespace Gamekit2D
             this.animationController.PlayMeleeAttack();
         }
 
-        public bool IsAttackOngoing()
+        public bool IsAnimationOngoing()
         {
             return this.animationController.IsLocked;
         }
@@ -800,7 +800,7 @@ namespace Gamekit2D
         {
             meleeDamager.EnableDamage();
             meleeDamager.disableDamageAfterHit = true;
-            meleeAttackAudioPlayer.PlayRandomSound();
+            // ### meleeAttackAudioPlayer.PlayRandomSound();
 
             m_MoveVector.x = 0;
         }

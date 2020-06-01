@@ -94,9 +94,11 @@ namespace Gamekit2D
         protected readonly int m_HashGroundedPara = Animator.StringToHash("Grounded");
         
         [SerializeField]
-        private PlayerAnimationController animationController = null;
+        public PlayerAnimationController animationController = null;
 
         [SerializeField] private ParticleSystem hitEffect = null;
+
+        private Coroutine _waitAndAttackCoroutine = null;
         
         private void Awake()
         {
@@ -314,10 +316,12 @@ namespace Gamekit2D
                 return;
             }
 
+            if (this.animationController.IsLocked)
+                return;
+
             if((m_Target.transform.position - transform.position).sqrMagnitude < (meleeRange * meleeRange))
             {
                 m_Animator.SetTrigger(m_HashMeleeAttackPara);
-                meleeAttackAudio.PlayRandomSound();
                 this.animationController.PlayMeleeAttack();
             }
         }
@@ -330,13 +334,22 @@ namespace Gamekit2D
             else
                 meleeDamager.transform.localPosition = m_LocalDamagerPosition;
 
-            meleeDamager.EnableDamage();
-            meleeDamager.gameObject.SetActive(true);
-
             if (attackDash)
                 m_MoveVector = new Vector2(m_SpriteForward.x * attackForce.x, attackForce.y);
+
+            _waitAndAttackCoroutine = StartCoroutine(WaitAndEnableDamage());
         }
 
+        protected virtual IEnumerator WaitAndEnableDamage()
+        {
+            yield return null;
+            
+            meleeDamager.EnableDamage();
+            meleeDamager.gameObject.SetActive(true);
+            meleeAttackAudio.PlayRandomSound();
+        }
+
+        // Called by animation
         public void EndAttack()
         {
             if (meleeDamager != null)
@@ -466,11 +479,13 @@ namespace Gamekit2D
             this.hitAudio.PlayRandomSound();
         }
 
-        public void Hit(Damager damager, Damageable damageable)
+        public virtual void Hit(Damager damager, Damageable damageable)
         {
             if (damageable.CurrentHealth <= 0)
                 return;
 
+            CancelAttack();
+            
             m_Animator.SetTrigger(m_HashHitPara);
             this.animationController.PlayHit();
 
@@ -512,7 +527,12 @@ namespace Gamekit2D
         }
         */
 
-        private void PlayHitEffect()
+        public bool IsAttackOngoing()
+        {
+            return this.animationController.IsLocked;
+        }
+        
+        protected void PlayHitEffect()
         {
             if (!this.hitEffect.gameObject.activeSelf)
                 this.hitEffect.gameObject.SetActive(true);
@@ -539,6 +559,15 @@ namespace Gamekit2D
                 this.animationController.SetOrientation(left, this.meleeDamager.SetXDirection);
 
             m_SpriteForward = left ? Vector2.left : Vector2.right;
+        }
+
+        private void CancelAttack()
+        {
+            if (_waitAndAttackCoroutine != null)
+            {
+                StopCoroutine(_waitAndAttackCoroutine);
+                EndAttack();
+            }
         }
 
 #if UNITY_EDITOR

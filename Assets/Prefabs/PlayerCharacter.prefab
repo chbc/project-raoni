@@ -379,7 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 5
   invulnerableAfterDamage: 1
-  invulnerabilityDuration: 1
+  invulnerabilityDuration: 2
   disableOnDeath: 0
   centreOffset: {x: 0, y: 1}
   OnHealthSet:
@@ -430,6 +430,7 @@ MonoBehaviour:
   dataSettings:
     dataTag: PlayerHealth
     persistenceType: 3
+  checkOrientation: 0
 --- !u!114 &114460243114916098
 MonoBehaviour:
   m_ObjectHideFlags: 0

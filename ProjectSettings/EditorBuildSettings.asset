@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Cutscene2.unity
     guid: e604b4e2ec6c2e443b5fc95879d68567
   - enabled: 1
+    path: Assets/Scenes/SeasonDescription.unity
+    guid: 3d4c908839742454c8d388172f5e2435
+  - enabled: 1
     path: Assets/Scenes/Zone1.unity
     guid: bc56a0c0f4747724bb8fbc5bb7c2091b
   - enabled: 1

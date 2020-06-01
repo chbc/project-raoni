@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 338ed8d4fa3403d4883428931aa3f815, type: 3}
+  - {fileID: 8300000, guid: 416e8f0aa104fd44489e329ef12b525f, type: 3}
   overrides: []
   randomizePitch: 0
   pitchRange: 0.2
@@ -419,7 +419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 1962436d7ed8b8146af54e3f098cfc44, type: 3}
+  - {fileID: 8300000, guid: 28b1efc29423a8c4e97bf7f30f673b34, type: 3}
   overrides: []
   randomizePitch: 0
   pitchRange: 0.2
@@ -769,6 +769,7 @@ MonoBehaviour:
   dataSettings:
     dataTag: 
     persistenceType: 0
+  checkOrientation: 0
 --- !u!1 &3864321786669407849
 GameObject:
   m_ObjectHideFlags: 0

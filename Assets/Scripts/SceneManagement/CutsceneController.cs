@@ -16,13 +16,20 @@ namespace ProjectRaoni
             
             yield return null;
             
-            this.videoPlayer.Play();
+            if (this.videoPlayer != null)
+            {
+                this.videoPlayer.Play();
 
-            yield return null;
-            
-            while (this.videoPlayer.isPlaying)
                 yield return null;
-            
+
+                while (this.videoPlayer.isPlaying)
+                    yield return null;
+            }
+            else
+            {
+                yield return new WaitForSeconds(3.0f);
+            }
+
             SceneController.TransitionToScene(this.transitionPoint);
         }
     }

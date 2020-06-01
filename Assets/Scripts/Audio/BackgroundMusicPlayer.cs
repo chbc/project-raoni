@@ -148,7 +148,7 @@ namespace Gamekit2D
         {
             m_MusicStack.Push(clip);
             m_MusicAudioSource.Stop();
-            m_MusicAudioSource.loop = false;
+            m_MusicAudioSource.loop = true;
             m_MusicAudioSource.time = 0;
             m_MusicAudioSource.clip = clip;
             m_MusicAudioSource.Play();

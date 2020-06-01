@@ -32,6 +32,8 @@ namespace Gamekit2D
         [HideInInspector]
         public DataSettings dataSettings;
 
+        public bool checkOrientation = false;
+        
         protected bool m_Invulnerable;
         protected float m_InulnerabilityTimer;
         protected int m_CurrentHealth;
@@ -95,6 +97,18 @@ namespace Gamekit2D
                 return;
             }
 
+            EnemyBehaviour enemy = GetComponent<EnemyBehaviour>();
+            Vector2 toDamager = transform.position - damager.transform.position;
+            if
+            (
+                this.checkOrientation &&
+                (
+                    ((toDamager.x < 0) && (!enemy.animationController.IsFacingLeft)) ||
+                    ((toDamager.x > 0) && (enemy.animationController.IsFacingLeft))
+                )
+            )
+                return;
+            
             //we can reach that point if the damager was one that was ignoring invincible state.
             //We still want the callback that we were hit, but not the damage to be removed from health.
             if (!m_Invulnerable)

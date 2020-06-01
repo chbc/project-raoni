@@ -113,6 +113,9 @@ namespace DragonBones
             }
             else if (this._actionTimeline == null || this._timeScale != 1.0f || this._timeOffset != 0.0f)
             {
+                if (_animationState == null)
+                    return false;
+                
                 var playTimes = this._animationState.playTimes;
                 var totalTime = playTimes * this._duration;
 

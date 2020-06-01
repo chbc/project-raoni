@@ -18,7 +18,7 @@ namespace Gamekit2D
             if (!m_MonoBehaviour.CheckForGrounded ())
                 animator.Play (m_HashAirborneMeleeAttackState, layerIndex, stateInfo.normalizedTime);
             
-            if (!m_MonoBehaviour.IsAttackOngoing())
+            if (!m_MonoBehaviour.IsAnimationOngoing())
                 animator.SetTrigger(ExitAttack);
         }
 
