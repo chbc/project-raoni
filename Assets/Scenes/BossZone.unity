@@ -340,30 +340,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4846065929256024, guid: 79e6d3f0dfac9924889a715a4c1a3097, type: 3}
-      propertyPath: m_LocalScale.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114719609329687142, guid: 79e6d3f0dfac9924889a715a4c1a3097,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114719609329687142, guid: 79e6d3f0dfac9924889a715a4c1a3097,
-        type: 3}
-      propertyPath: walkSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114719609329687142, guid: 79e6d3f0dfac9924889a715a4c1a3097,
-        type: 3}
-      propertyPath: runSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8427662655317109624, guid: 79e6d3f0dfac9924889a715a4c1a3097,
-        type: 3}
-      propertyPath: flickeringDuration
-      value: 0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79e6d3f0dfac9924889a715a4c1a3097, type: 3}
 --- !u!4 &236785940 stripped

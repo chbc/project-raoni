@@ -31,6 +31,9 @@ namespace ProjectRaoni
         
         private Renderer[] meshRenderers;
 
+        private Coroutine lockAndPlayCoroutine = null;
+        private Coroutine materialCoroutine = null;
+
         private void Awake()
         {
             this.currentAnimationName = IDLE;
@@ -45,10 +48,22 @@ namespace ProjectRaoni
             
             if (this.overrideMaterial != null)
             {
-                StartCoroutine(this.UpdateMaterial(-1.0f));
+                materialCoroutine = StartCoroutine(this.UpdateMaterial(-1.0f));
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            if (lockAndPlayCoroutine != null)
+                StopCoroutine(lockAndPlayCoroutine);
+
+            if (materialCoroutine != null)
+                StopCoroutine(materialCoroutine);
+            
+            lockAndPlayCoroutine = null;
+            materialCoroutine = null;
+        }
+
         public void SetOrientation(bool left, Action<float> meleeOrientationCallback)
         {
             if (left && !this.IsFacingLeft)
@@ -93,31 +108,35 @@ namespace ProjectRaoni
         public void PlayMeleeAttack()
         {
             this.PlayAnimation(ATTACK1, 1, 0.05f);
-            StartCoroutine(LockWaitAndUnlockAnimation());
+            LockWaitAndUnlockAnimation();
         }
 
         public void PlaySecondAttack()
         {
             this.PlayAnimation(ATTACK3, 1, 0.05f);
-            StartCoroutine(LockWaitAndUnlockAnimation());
+            LockWaitAndUnlockAnimation();
         }
 
         public void PlayRangedAttack()
         {
             this.PlayAnimation(ATTACK2, 1);
-            StartCoroutine(LockWaitAndUnlockAnimation());
+            LockWaitAndUnlockAnimation();
         }
 
         public void PlayDash()
         {
             this.PlayAnimation(DASH, 1, 0.1f);
-            StartCoroutine(LockWaitAndUnlockAnimation(0.5f));
+            
+            if (lockAndPlayCoroutine != null)
+                StopCoroutine(lockAndPlayCoroutine);
+            
+            lockAndPlayCoroutine = StartCoroutine(LockWaitAndUnlockAnimation(0.5f));
         }
 
         public void PlayHit()
         {
             this.PlayAnimation(HIT, 1);
-            StartCoroutine(LockWaitAndUnlockAnimation(false));
+            LockWaitAndUnlockAnimation(false);
         }
         
         public void PlayDie()
@@ -125,7 +144,7 @@ namespace ProjectRaoni
             base.Stop();
             this.isLocked = false;
             this.PlayAnimation(DEATH, 1);
-            StartCoroutine(LockWaitAndUnlockAnimation(false));
+            LockWaitAndUnlockAnimation(false);
         }
 
         public void SetRendererEnabled(bool isEnabled)
@@ -144,7 +163,15 @@ namespace ProjectRaoni
             }
         }
 
-        private IEnumerator LockWaitAndUnlockAnimation(bool playIdleAfterUnlock = true)
+        private void LockWaitAndUnlockAnimation(bool playIdleAfterUnlock = true)
+        {
+            if (lockAndPlayCoroutine != null)
+                StopCoroutine(lockAndPlayCoroutine);
+
+            lockAndPlayCoroutine = StartCoroutine(ExecuteLockWaitAndUnlockAnimation(playIdleAfterUnlock));
+        }
+        
+        private IEnumerator ExecuteLockWaitAndUnlockAnimation(bool playIdleAfterUnlock)
         {
             this.isLocked = true;
             yield return null;
@@ -175,7 +202,11 @@ namespace ProjectRaoni
                 this.currentAnimationName = animationName;
                 
                 base.Play(animationName, playTimes, fadeTime);
-                StartCoroutine(this.UpdateMaterial(fadeTime));
+                
+                if (materialCoroutine != null)
+                    StopCoroutine(materialCoroutine);
+                
+                materialCoroutine = StartCoroutine(this.UpdateMaterial(fadeTime));
             }
         }
         

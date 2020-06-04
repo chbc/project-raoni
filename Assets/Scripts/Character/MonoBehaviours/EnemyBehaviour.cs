@@ -469,7 +469,6 @@ namespace Gamekit2D
             dieAudio.PlayRandomSound();
 
             m_Dead = true;
-            m_Collider.enabled = false;
 
             CameraShaker.Shake(0.15f, 0.3f);
             
