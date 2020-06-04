@@ -22,6 +22,7 @@
  */
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DragonBones
 {
@@ -934,10 +935,13 @@ namespace DragonBones
 
                         if (i == l - 1 || timeline.bone != this._boneTimelines[i + 1].bone)
                         {
-                            var state = timeline.bone._blendState.Update(this._weightResult, this.layer);
-                            if (state != 0)
+                            if ((timeline.bone != null) && (timeline.bone._blendState != null))
                             {
-                                timeline.Blend(state);
+                                var state = timeline.bone._blendState.Update(this._weightResult, this.layer);
+                                if (state != 0)
+                                {
+                                    timeline.Blend(state);
+                                }
                             }
                         }
                     }

@@ -557,16 +557,16 @@ namespace Gamekit2D
             m_MoveVector.x = jumpSpeed * DASH_MULTIPLIER * direction;
             this.animationController.PlayDash();
 
-            m_Capsule.enabled = false;
+            this.damageable.EnableInvulnerability();
             this.dashAudioPlayer.PlayRandomSound();
 
-            StartCoroutine(WaitAndEnableCollider());
+            StartCoroutine(WaitAndDisableInvulnerability());
         }
 
-        private IEnumerator WaitAndEnableCollider()
+        private IEnumerator WaitAndDisableInvulnerability()
         {
             yield return new WaitForSeconds(0.5f);
-            m_Capsule.enabled = true;
+            this.damageable.DisableInvulnerability();
         }
 
         public bool CheckForFallInput()

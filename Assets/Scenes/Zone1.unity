@@ -1173,6 +1173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stageMusic: {fileID: 8300000, guid: 43a11d3b76a2db94389d7b1d33b84892, type: 3}
+  _playAtNightsOverRiversAndBridges: 1
+  _resetAudio: 0
 --- !u!1 &513328087
 GameObject:
   m_ObjectHideFlags: 0
