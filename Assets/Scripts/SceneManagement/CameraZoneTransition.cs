@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace ProjectRaoni
@@ -8,17 +10,42 @@ namespace ProjectRaoni
     {
         [SerializeField] private Transform cameraConfiner = null;
         [SerializeField] private Transform nextTransitionTransform = null;
-        [SerializeField] private GameObject goMessage = null;
         [SerializeField] private GameObject collision = null;
         [SerializeField] private Transform startSceneCollision = null;
         [SerializeField] private float TRANSITION_SPEED = 0.5f;
-        
-        private void OnTriggerEnter2D (Collider2D other)
+
+        private bool hitTrigger;
+        private bool allEnemiesDied;
+
+        private void Start()
         {
-            if (other.gameObject.CompareTag("Player"))
+            this.hitTrigger = false;
+            this.allEnemiesDied = false;
+            EnemiesController.Instance.AddEnemiesBeatenListener(OnAllEnemiesDied);
+        }
+
+        private void OnAllEnemiesDied(int index)
+        {
+            if (index != 0)
+                return;
+            
+            EnemiesController.Instance.RemoveEnemiesBeatenListener(OnAllEnemiesDied);
+            this.allEnemiesDied = true;
+
+            if (this.hitTrigger)
             {
                 StartCoroutine(WaitAndGo());
+                this.GetComponent<BoxCollider2D>().enabled = false;
+            }
+        }
 
+        private void OnTriggerEnter2D (Collider2D other)
+        {
+            this.hitTrigger = true;
+            
+            if (this.allEnemiesDied && other.gameObject.CompareTag("Player"))
+            {
+                StartCoroutine(WaitAndGo());
                 this.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
@@ -31,14 +58,7 @@ namespace ProjectRaoni
             currentCollisionPosition.x = 7.0f;
             this.startSceneCollision.position = currentCollisionPosition;
             
-            for (int i = 0; i < 3; i++)
-            {
-                this.goMessage.SetActive(true);
-                yield return new WaitForSeconds(0.75f);
-                
-                this.goMessage.SetActive(false);
-                yield return new WaitForSeconds(0.25f);
-            }
+            yield return new WaitForSeconds(1.0f);
             
             Destroy(this.collision);
 
