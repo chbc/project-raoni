@@ -9,7 +9,7 @@ namespace ProjectRaoni
     {
         [SerializeField] private VideoPlayer videoPlayer = null;
         [SerializeField] private TransitionPoint transitionPoint = null;
-
+        [SerializeField] private float timeToWait = 3.0f;
         private IEnumerator Start()
         {
             BackgroundMusicPlayer.Instance.Stop();
@@ -27,7 +27,7 @@ namespace ProjectRaoni
             }
             else
             {
-                yield return new WaitForSeconds(3.0f);
+                yield return new WaitForSeconds(this.timeToWait);
             }
 
             SceneController.TransitionToScene(this.transitionPoint);

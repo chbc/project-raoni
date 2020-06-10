@@ -36,9 +36,15 @@ namespace ProjectRaoni
         {
             this.allEnemiesDiedListeners = null;
             this.enemiesUpdatedListeners = null;
+            Instance = null;
         }
 
-        public void OnEnemyDied()
+        public static void OnEnemyDied()
+        {
+            Instance?.NotifyEnemyDied();
+        }
+        
+        private void NotifyEnemyDied()
         {
             this.currentCount++;
             this.enemiesUpdatedListeners?.Invoke(this.currentCount, this.totalEnemiesCount[this.currentIndex]);
@@ -46,7 +52,7 @@ namespace ProjectRaoni
             if (this.currentCount >= this.totalEnemiesCount[this.currentIndex])
             {
                 this.allEnemiesDiedListeners?.Invoke(this.currentIndex);
-                if (this.currentIndex < this.totalEnemiesCount.Length)
+                if (this.currentIndex < this.totalEnemiesCount.Length - 1)
                     this.currentIndex++;
 
                 this.currentCount = 0;

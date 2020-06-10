@@ -472,7 +472,7 @@ namespace Gamekit2D
 
             CameraShaker.Shake(0.15f, 0.3f);
             
-            EnemiesController.Instance.OnEnemyDied();
+            EnemiesController.OnEnemyDied();
             
             this.PlayHitEffect();
             this.hitAudio.PlayRandomSound();
