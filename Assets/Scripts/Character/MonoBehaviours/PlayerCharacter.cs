@@ -800,7 +800,7 @@ namespace Gamekit2D
         {
             meleeDamager.EnableDamage();
             meleeDamager.disableDamageAfterHit = true;
-            // ### meleeAttackAudioPlayer.PlayRandomSound();
+            meleeAttackAudioPlayer.PlayRandomSound();
 
             m_MoveVector.x = 0;
         }

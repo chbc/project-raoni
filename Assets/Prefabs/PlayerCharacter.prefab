@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 151cb0c18bcdc6040aa921203a4ca7a5, type: 3}
+  - {fileID: 8300000, guid: 6da971539013ee24a934b16b236290c7, type: 3}
   overrides: []
   randomizePitch: 1
   pitchRange: 0.2
