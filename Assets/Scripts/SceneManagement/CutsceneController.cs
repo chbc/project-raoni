@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Gamekit2D;
 using UnityEngine;
 using UnityEngine.Video;
@@ -10,6 +11,7 @@ namespace ProjectRaoni
         [SerializeField] private VideoPlayer videoPlayer = null;
         [SerializeField] private TransitionPoint transitionPoint = null;
         [SerializeField] private float timeToWait = 3.0f;
+
         private IEnumerator Start()
         {
             BackgroundMusicPlayer.Instance.Stop();
@@ -31,6 +33,15 @@ namespace ProjectRaoni
             }
 
             SceneController.TransitionToScene(this.transitionPoint);
+        }
+
+        private void Update()
+        {
+            if (Input.anyKeyDown)
+            {
+                StopAllCoroutines();
+                SceneController.TransitionToScene(this.transitionPoint);
+            }
         }
     }
 }

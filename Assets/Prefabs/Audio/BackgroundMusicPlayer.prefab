@@ -46,10 +46,10 @@ MonoBehaviour:
   musicAudioClip: {fileID: 8300000, guid: 0651b56880a11ef45909b779443691aa, type: 3}
   musicOutput: {fileID: 243771002084737210, guid: 74cb2eead3628fa47a369c51a45d99a1,
     type: 2}
-  musicVolume: 0.5
+  musicVolume: 0.25
   ambientAudioClip: {fileID: 8300000, guid: 3a9ba69f03694d44a9968f5b7c4abb1c, type: 3}
   ambientOutput: {fileID: 243295666145841046, guid: 74cb2eead3628fa47a369c51a45d99a1,
     type: 2}
   ambientPlayOnAwake: 1
   zone1Intro: {fileID: 8300000, guid: a4785fa099e6f1142aef1125a6206a49, type: 3}
-  ambientVolume: 1
+  ambientVolume: 0.5

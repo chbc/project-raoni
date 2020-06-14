@@ -170,6 +170,7 @@
      <Compile Include="Assets\Scripts\UI\InputDisplayUI.cs" />
      <Compile Include="Assets\Scripts\UI\KeyUI.cs" />
      <Compile Include="Assets\Scripts\UI\LoadSceneByPressingButton.cs" />
+     <Compile Include="Assets\Scripts\UI\LoadingBar.cs" />
      <Compile Include="Assets\Scripts\UI\MenuActivityController.cs" />
      <Compile Include="Assets\Scripts\UI\OptionUI.cs" />
      <Compile Include="Assets\Scripts\UI\PlayerHUD.cs" />

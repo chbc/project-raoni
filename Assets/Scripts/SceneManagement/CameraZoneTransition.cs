@@ -14,6 +14,9 @@ namespace ProjectRaoni
         [SerializeField] private Transform startSceneCollision = null;
         [SerializeField] private float TRANSITION_SPEED = 0.5f;
 
+        [SerializeField] private GoController _goController = null;
+        [SerializeField] private EnemiesCounter _enemiesCounter = null;
+        
         private bool hitTrigger;
         private bool allEnemiesDied;
 
@@ -85,6 +88,10 @@ namespace ProjectRaoni
             this.cameraConfiner.position = nextTransitionTransform.position;
 
             PlayerCamera.Instance.LimitBack(false);
+            
+            _goController.StopMessage();
+            _enemiesCounter.ShowCounter();
+            
             Destroy(this.gameObject);
         }
     }

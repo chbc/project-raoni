@@ -298,7 +298,7 @@ MonoBehaviour:
     controllerButton: 10
     m_Enabled: 1
   SecondAttack:
-    key: 106
+    key: 108
     controllerButton: 4
     m_Enabled: 1
   Dash:
