@@ -164,6 +164,7 @@
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextClip.cs" />
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextMixerBehaviour.cs" />
      <Compile Include="Assets\Scripts\Timeline\ScrollingText\ScrollingTextTrack.cs" />
+     <Compile Include="Assets\Scripts\UI\BossZoneWarningController.cs" />
      <Compile Include="Assets\Scripts\UI\EnemiesCounter.cs" />
      <Compile Include="Assets\Scripts\UI\GameControlPopup.cs" />
      <Compile Include="Assets\Scripts\UI\HealthUI.cs" />

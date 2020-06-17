@@ -64,9 +64,20 @@ namespace Gamekit2D
             Horizontal.Get(inputType);
             Vertical.Get(inputType);
 
+            /* ###
             if (Input.GetKeyDown(KeyCode.F12))
             {
                 m_DebugMenuIsOpen = !m_DebugMenuIsOpen;
+            }
+            */
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+		    Application.Quit();
+#endif
             }
         }
 
