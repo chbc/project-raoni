@@ -26,6 +26,7 @@ namespace ProjectRaoni
                 StopCoroutine(_coroutine);
 
             _coroutine = null;
+            this.goMessage.SetActive(false);
         }
 
         private void OnEnemiesBeaten(int index)
